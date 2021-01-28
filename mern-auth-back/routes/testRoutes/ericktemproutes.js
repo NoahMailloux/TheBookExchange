@@ -8,7 +8,7 @@ const User = require("../../models/userModel");
 
 
 router.post("/creatediscussion", async (req, res) =>{
-
+//comment
     try{
       const {email, password} = req.body;
 
