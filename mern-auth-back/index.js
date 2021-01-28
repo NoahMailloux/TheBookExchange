@@ -33,4 +33,6 @@ mongoose.connect(
 
     app.use("/users", require("./routes/userRouter")); //if were on /users it will require the middleware
     app.use("/todos", require("./routes/todoRouter"));
+    app.use("/discussion", require("./routes/testRoutes/ericktemproutes"));
+    
 
