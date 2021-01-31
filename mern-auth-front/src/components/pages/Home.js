@@ -10,6 +10,10 @@ export default function Home() {
         if(!userData.user) history.push("/login")
     });
 
-    return<div className="page">Home</div>;
+    return(
+    <div className="page">
+        Home
+    </div>
+    );
 
 }
