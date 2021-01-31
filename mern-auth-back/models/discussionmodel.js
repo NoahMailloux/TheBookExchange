@@ -9,4 +9,4 @@ const discussionSchema = new mongoose.Schema({
 
 });
 
-module.exports = discussion = mongoose.model("discussion", discussionSchema); 
+module.exports = Discussion = mongoose.model("discussions", discussionSchema); 
