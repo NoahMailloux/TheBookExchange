@@ -3,42 +3,46 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const User = require("../../models/userModel");
+const Discussion = require("../../models/discussionmodel")
 
 /*Ignore this */
+//Find a user
+router.get("/", auth, async (req, res) =>{
+  const user = await User.findById(req.user);
+  res.json({
+      displayName: user.displayName,
+      id: user._id,
+  });
+});
+//
 
 
 router.post("/creatediscussion", async (req, res) =>{
 //comments
-    try{
-      const {email, password} = req.body;
+const discussion = await Discussion.findById(req.user);
+const {title, creator } = req.body;
+try{
+  const token = req.header("x-auth-token");
+  if(!token) return res.json(false);
 
-      //validate
-      if(!email || !password)
-       return res.status(400).json({msg: "Not all fields have been entered"});
+  const verified = jwt.verify(token, process.env.JWT_SECRET);
+  if(!verified) return res.json(false);
 
-       const user = await User.findOne({email: email});
-      if(!user)
-       return res
-            .status(400)
-            .json({msg: "No account with this email has been registered."});
+  const user = await User.findById(verified.id);
+  if(!user) return res.json(false);
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if(!isMatch)
-        return res
-        .status(400)
-        .json({msg: "Invalid credentials."});
+  const newDiscussion = new Discussion({
+    title,
+    creator: user.displayName,
+});
+const creatediscussion = await newDiscussion.save();
+        res.json(creatediscussion);
 
-      const token  = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-      res.json({
-          token,
-          user: {
-            id: user._id,
-            displayName: user.displayName,
-          },
-      })
-    } catch(err){
-        res.status(500).json({error: err.message});
-    }
+
+  return res.json(true);
+ }catch(err){ 
+     res.status(500).json({error: err.message});
+ }
 })
 
 module.exports = router;

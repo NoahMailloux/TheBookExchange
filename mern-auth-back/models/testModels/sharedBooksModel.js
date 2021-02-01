@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const sharedBooksSchema = new mongoose.Schema({
-    shareID: {type: Int, required: true, unique: true},
-    bookID: {type: Int, required: true, unique: true},
-    sharerID: {type: Int, required: true, unique: true},
-    receiverID: {type: Int, required: true, unique: true}
+    bookID: {type: Number, required: true, unique: false},
+    sharerID: {type: Number, required: true, unique: false},
+    receiverID: {type: Number, required: false, unique: false},
+    lastUpdated: {type: String, required: true, unique: false}
 });
 
-module.exports = SharedBooks = mongoose.model("sharedbooks", sharedBooksSchema); 
+module.exports = SharedBook = mongoose.model("sharedbooks", sharedBooksSchema); 
