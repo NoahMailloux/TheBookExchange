@@ -35,4 +35,4 @@ mongoose.connect(
     app.use("/todos", require("./routes/todoRouter"));
     app.use("/discussion", require("./routes/testRoutes/ericktemproutes"));
     app.use("/discussionFollows", require("./routes/testRoutes/discussionFollowsRouter"));
-
+    app.use("/sharedBooks", require("./routes/testRoutes/sharedBooksRouter"));
