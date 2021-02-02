@@ -13,3 +13,5 @@ const userSchema = new mongoose.Schema({
 
 module.exports = User = mongoose.model("user", userSchema); //creates mongoose model to search and save users
 //in user collection with userSchema
+
+//need to change "" table prob already exsists 

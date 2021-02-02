@@ -5,6 +5,8 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/userModel");
 const DiscussionFollows = require("../../models/testModels/discussionFollowsModel"); //require discussionFollowsModel
 
+//THIS ROUTER IS FINISHED
+
 router.post("/followDiscussion", async (req, res) => { //when /followDiscussion is requested this will be run
     try{
         const {discussionID, bookID} = req.body; //grab info from body
@@ -19,7 +21,6 @@ router.post("/followDiscussion", async (req, res) => { //when /followDiscussion 
                 + currentdate.getSeconds(); //grabs current dateTime
         lastUpdated.toString();
         let userID = data.id.toString(); 
-        console.log(userID);
         const newDiscussionFollow = new DiscussionFollow({
             discussionID,
             userID,
@@ -37,25 +38,24 @@ router.get("/getDiscussionFollows", async (req, res) => { //when /getDiscussionF
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        //const existingUser = data.id;//grab current user
-        let did = req.query.did; // did is database generated unique ID
+        let did = req.query.did;//send a did in the query with the discussionID as the value
         try{
             const follows = await DiscussionFollow.find({discussionID:did}).exec(); //grabs all discussionFollow records
-            res.json(JSON.stringify(follows)) //sends back all discussion follows records objects
+            res.json(JSON.stringify(follows)) //sends back all discussion follows records 
         }catch(ex){
             // execution continues here when an error was thrown. You can also inspect the `ex`ception object
         }
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getDiscussionFollows" //this route sends back all discussion follows records objects
+}); // end router.post("/getDiscussionFollows" //this route sends back all discussion follows records 
 
 router.get("/myFollows", async (req, res) => { //when /myFollows is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         const myFollows = await DiscussionFollow.find({userID:data.id}).exec(); //grabs all discussionFollow records for a specific user
-        res.json(JSON.stringify(myFollows)) //sends back all discussion follows records objects
+        res.json(JSON.stringify(myFollows)) //sends back the records
 
     }catch(err){
         res.status(500).json({error: err.message});
@@ -65,7 +65,7 @@ router.get("/myFollows", async (req, res) => { //when /myFollows is requested th
 router.delete("/unFollow", auth, async(req, res) =>{ //when /unFollow is requested this will be run
     try{
         console.log(req);
-        const deletedFollow = await DiscussionFollow.findByIdAndDelete(req.body.fid); //passing db id of discussionFollow, finding and deleting it
+        const deletedFollow = await DiscussionFollow.findByIdAndDelete(req.body.fid); //passing db id, in body, of discussionFollow, finding and deleting it
         res.json(deletedFollow); //send back deleted obj record
     }catch(err){
         res.status(500).json({error: err.message});

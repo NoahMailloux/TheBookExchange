@@ -37,3 +37,6 @@ mongoose.connect(
     app.use("/discussionFollows", require("./routes/testRoutes/discussionFollowsRouter"));
     app.use("/sharedBooks", require("./routes/testRoutes/sharedBooksRouter"));
     app.use("/notifications", require("./routes/testRoutes/notificationRouterTest"));
+    app.use("/books", require("./routes/testRoutes/booksRouter"));
+    app.use("/genres", require("./routes/testRoutes/genresRouter"));
+    app.use("/orders", require("./routes/testRoutes/ordersRouter"));

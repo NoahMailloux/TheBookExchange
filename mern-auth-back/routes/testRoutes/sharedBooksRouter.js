@@ -5,10 +5,10 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/userModel");
 const SharedBooks = require("../../models/testModels/sharedBooksModel"); //require sharedBooksModel
 
-router.post("/addBook", async (req, res) => { //when /addBook is requested this will be run
+router.post("/addSharedBook", async (req, res) => { //when /addSharedBook is requested this will be run
     try{
         const {bookID, sharerID, receiverID } = req.body; //grab info from body
-        const token = req.header("auth-token"); //grab token
+        const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         var currentdate = new Date(); 
         var lastUpdated = "Last Sync: " + currentdate.getDate() + "/"
@@ -30,15 +30,14 @@ router.post("/addBook", async (req, res) => { //when /addBook is requested this 
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/addBook" //this route creates a new shared book record
+}); // end router.post("/addSharedBook" //this route creates a new shared book record
 
 
-router.get("/getSharedBooks", async (req, res) => { //when /getSharedBooks is requested this will be run
+router.get("/getAllSharedBooks", async (req, res) => { //when /getAllSharedBooks is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const existingUser = data.id;//grab current user
-        let did = req.query.did; // did is database generated unique ID
+        let did = req.query.did; //send a did in the query with the bookID as the value
         try{
             const books = await SharedBook.find({bookID:did}).exec(); //grabs all shared book records by bookID
             res.json(JSON.stringify(books)) //sends back all shared book records 
@@ -48,28 +47,29 @@ router.get("/getSharedBooks", async (req, res) => { //when /getSharedBooks is re
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getSharedBooks" //this route sends back all shared book records
+}); // end router.post("/getAllSharedBooks" //this route sends back all shared book records
 
 
-router.post("/MySharedBooks", async (req, res) => { //when /MySharedBooks is requested this will be run
+router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requested this will be run
     try{
-        const token = req.header("auth-token"); //grab token
+        const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const existingUser = data.id;//grab current user
-        let did = req.query.did; // did is database generated unique ID
+        let did = req.query.did; //send a did in the query with the bookID as the value
         try{
             const myBooks = await SharedBook.find({userID:did}).exec(); //grabs all sharedBooks for a specific user
-            res.json(JSON.stringify(myBooks)) //sends back all sharedBookss records
+            res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
         }catch(ex){
             // execution continues here when an error was thrown. You can also inspect the `ex`ception object
         }
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/MySharedBooks" //this route grabs the list of books a specific user has shared 
+}); // end router.post("/mySharedBooks" //this route grabs the list of books a specific user has shared 
 
 router.route("/shareBook").post(function(req, res) {
-    let did = req.query.did; // did is database generated unique ID
+    const token = req.header("x-auth-token"); //grab token
+    data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
+    let did = req.query.did; //send a did in the query with the bookID as the value
     try{
         const sharer = /*await*/ SharedBook.find({sharerID:did}).exec(); //grabs specific sharedBook record 
         SharedBook.findByIdAndUpdate(
