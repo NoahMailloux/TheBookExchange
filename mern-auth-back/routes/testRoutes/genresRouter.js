@@ -16,14 +16,14 @@ router.post("/createGenre", async (req, res) => { //when /createGenre is request
             genre,
             description
         }); //create a new genre record
-        const genre = await newGenre.save(); // save the record
-        res.json(genre); //send back the new record
+        const genreRecord = await newGenre.save(); // save the record
+        res.json(genreRecord); //send back the new record
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
 }); // end router.post("/createGenre" //this route creates a new genre record
 
-router.post("/getGenre", async (req, res) => { //when /getGenre is requested this will be run
+router.get("/getGenre", async (req, res) => { //when /getGenre is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
@@ -33,19 +33,14 @@ router.post("/getGenre", async (req, res) => { //when /getGenre is requested thi
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getGenre" //this route gets a specific genre
+}); // end router.post("/getGenre" //this route gets a specific genre !!!!!!BY GENRE ID!!!!
 
-router.post("/getAllGenres", async (req, res) => { //when /getAllGenre is requested this will be run
+router.get("/getAllGenres", async (req, res) => { //when /getAllGenre is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        let did = req.query.did; //send a did in the query with the genreID as the value
-        try{
-            const genres = await Genre.find({genreID:did}).exec(); //grabs all genre records
-            res.json(JSON.stringify(genres)) //sends back all genre records 
-        }catch(ex){
-            // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-        }
+        const genres = await Genre.find({}).exec(); //grabs all genre records
+        res.json(JSON.stringify(genres)) //sends back all genre records 
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch

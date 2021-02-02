@@ -44,21 +44,28 @@ router.post("/createOrder", async (req, res) => { //when /createOrder is request
     } //end try,catch
 }); // end router.post("/createOrder" //this route creates a new order record
 
-router.get("/getOrders", async (req, res) => { //when /getOrders is requested this will be run
+router.get("/getAllOrders", async (req, res) => { //when /getAllOrders is requested this will be run
+    try{
+        const token = req.header("x-auth-token"); //grab token
+        data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
+        const orders = await Order.find().exec(); //grabs all shared order records 
+        res.json(JSON.stringify(orders)) //sends back all order records 
+    }catch(err){
+        res.status(500).json({error: err.message});
+    } //end try,catch
+}); // end router.post("/getAllOrders" //this route sends back all orders records
+
+router.get("/getOrder", async (req, res) => { //when /getOrder is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         let did = req.query.did;//send a did in the query with the orderID as the value
-        try{
-            const orders = await Order.find({orderID:did}).exec(); //grabs all order records
-            res.json(JSON.stringify(orders)) //sends back all order records 
-        }catch(ex){
-            // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-        }
+        const orders = await Order.find({orderID:did}).exec(); //grabs all order records
+        res.json(JSON.stringify(orders)) //sends back all order records 
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getOrders" //this route sends back all orders
+}); // end router.post("/getOrder" //this route sends back all orders for a specific order ID
 
 router.get("/getUserOrders", async (req, res) => { //when /getUserOrders is requested this will be run
     try{
@@ -66,7 +73,6 @@ router.get("/getUserOrders", async (req, res) => { //when /getUserOrders is requ
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         const userOrders = await Order.find({userID:data.id}).exec(); //grabs all order records for a specific user
         res.json(JSON.stringify(userOrders)) //sends back the records
-
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
@@ -83,5 +89,3 @@ router.delete("/deleteOrder", auth, async(req, res) =>{ //when /deleteOrder is r
 }); // end router.post("/deleteOrder" //this route deletes an order
 
 module.exports = router;
-
-//routes to make

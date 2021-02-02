@@ -38,17 +38,12 @@ router.get("/getDiscussionFollows", async (req, res) => { //when /getDiscussionF
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        let did = req.query.did;//send a did in the query with the discussionID as the value
-        try{
-            const follows = await DiscussionFollow.find({discussionID:did}).exec(); //grabs all discussionFollow records
+            const follows = await DiscussionFollow.find().exec(); //grabs all discussionFollow records
             res.json(JSON.stringify(follows)) //sends back all discussion follows records 
-        }catch(ex){
-            // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-        }
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getDiscussionFollows" //this route sends back all discussion follows records 
+}); // end router.post("/getDiscussionFollows" //this route sends back all discussion follows records for a specific discussion
 
 router.get("/myFollows", async (req, res) => { //when /myFollows is requested this will be run
     try{
@@ -56,7 +51,6 @@ router.get("/myFollows", async (req, res) => { //when /myFollows is requested th
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         const myFollows = await DiscussionFollow.find({userID:data.id}).exec(); //grabs all discussionFollow records for a specific user
         res.json(JSON.stringify(myFollows)) //sends back the records
-
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch

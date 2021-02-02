@@ -7,7 +7,7 @@ const SharedBooks = require("../../models/testModels/sharedBooksModel"); //requi
 
 router.post("/addSharedBook", async (req, res) => { //when /addSharedBook is requested this will be run
     try{
-        const {bookID, sharerID, receiverID } = req.body; //grab info from body
+        const {bookID, receiverID } = req.body; //grab info from body
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         var currentdate = new Date(); 
@@ -17,14 +17,14 @@ router.post("/addSharedBook", async (req, res) => { //when /addSharedBook is req
                 + currentdate.getHours() + ":"
                 + currentdate.getMinutes() + ":" 
                 + currentdate.getSeconds(); //grabs current dateTime
-                lastUpdated.toString(); //save as string
+        lastUpdated.toString(); //save as string
+        let sharerID = data.id.toString(); 
         const newShareBook = new SharedBook({
             bookID,
             sharerID,
             receiverID,
             lastUpdated
         }); //create a new SharedBook record
-
         const shareBook = await newShareBook.save(); // save the record
         res.json(shareBook); //send back the new shared book record
     }catch(err){
@@ -37,13 +37,8 @@ router.get("/getAllSharedBooks", async (req, res) => { //when /getAllSharedBooks
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        let did = req.query.did; //send a did in the query with the bookID as the value
-        try{
-            const books = await SharedBook.find({bookID:did}).exec(); //grabs all shared book records by bookID
-            res.json(JSON.stringify(books)) //sends back all shared book records 
-        }catch(ex){
-            // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-        }
+        const books = await SharedBook.find().exec(); //grabs all shared book records by bookID
+        res.json(JSON.stringify(books)) //sends back all shared book records 
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
@@ -54,13 +49,8 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        let did = req.query.did; //send a did in the query with the bookID as the value
-        try{
-            const myBooks = await SharedBook.find({userID:did}).exec(); //grabs all sharedBooks for a specific user
-            res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
-        }catch(ex){
-            // execution continues here when an error was thrown. You can also inspect the `ex`ception object
-        }
+        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for a specific user
+        res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
@@ -91,8 +81,5 @@ router.route("/shareBook").post(function(req, res) {
 //make "share book" (updates reciever in record) route (take shareID(_id) and recieverID and add new rec)
 // shareID, recieverID in post body
 //update record where shareID = shareID in body. Update the recieverID where recieverID = recieverID in body.
-
-
-
 
 module.exports = router;
