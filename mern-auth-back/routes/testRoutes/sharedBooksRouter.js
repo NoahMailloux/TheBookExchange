@@ -71,7 +71,7 @@ router.post("/MySharedBooks", async (req, res) => { //when /MySharedBooks is req
 router.route("/shareBook").post(function(req, res) {
     let did = req.query.did; // did is database generated unique ID
     try{
-        const sharer = await SharedBook.find({sharerID:did}).exec(); //grabs specific sharedBook record 
+        const sharer = /*await*/ SharedBook.find({sharerID:did}).exec(); //grabs specific sharedBook record 
         SharedBook.findByIdAndUpdate(
             { _id: sharer }, // value of the _id field
             { receiverID: res.body }, //update
