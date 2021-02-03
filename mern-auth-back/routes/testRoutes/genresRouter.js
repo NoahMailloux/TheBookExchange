@@ -33,7 +33,7 @@ router.get("/getGenre", async (req, res) => { //when /getGenre is requested this
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getGenre" //this route gets a specific genre !!!!!!BY GENRE ID!!!!
+}); // end router.get("/getGenre" //this route gets a specific genre !!!!!!BY GENRE ID!!!!
 
 router.get("/getAllGenres", async (req, res) => { //when /getAllGenre is requested this will be run
     try{
@@ -44,7 +44,7 @@ router.get("/getAllGenres", async (req, res) => { //when /getAllGenre is request
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getAllGenre" //this route gets all genre records
+}); // end router.get("/getAllGenre" //this route gets all genre records
 
 router.delete("/deleteGenre", auth, async(req, res) =>{ //when /deleteGenre is requested this will be run
     try{
@@ -54,7 +54,7 @@ router.delete("/deleteGenre", auth, async(req, res) =>{ //when /deleteGenre is r
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}); // end router.post("/deleteGenre" //this route will delete a genre
+}); // end router.delete("/deleteGenre" //this route will delete a genre
 
 module.exports = router;
 
