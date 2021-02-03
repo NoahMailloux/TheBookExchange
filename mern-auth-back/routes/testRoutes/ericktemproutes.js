@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const User = require("../../models/userModel");
-const Discussion = require("../../models/discussionmodel")
+const Discussion = require("../../models/discussionmodel");
+const { db } = require("../../models/userModel");
 
 /*Ignore this */
 //Find a user
@@ -89,6 +90,37 @@ router.post("/createcomment", async (req, res) =>{
   });
 
 
+router.post("/listdiscussions", async (req, res) =>{
+  //comments
+
+  const discussion = await Discussion.findById(req.user);
+
+  try{
+    const token = req.header("x-auth-token");
+    if(!token) return res.json(false);
+  
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if(!verified) return res.json(false);
+  
+    const user = await User.findById(verified.id);
+    if(!user) return res.json(false);
+
+
+//print all discussion records
+  const collection = db.collection('discussions');
+
+  collection.find({}).toArray(function(err, discussions){
+    
+    console.log(JSON.stringify(discussions, null, 2));
+  });
+
+
+
+    return res.json(true);
+   }catch(err){ 
+       res.status(500).json({error: err.message});
+   }
+  });
 
 
 module.exports = router;
