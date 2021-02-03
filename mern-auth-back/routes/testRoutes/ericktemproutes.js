@@ -19,8 +19,11 @@ router.get("/", auth, async (req, res) =>{
 
 router.post("/creatediscussion", async (req, res) =>{
 //comments
+
+
 const discussion = await Discussion.findById(req.user);
-const {title, creator } = req.body;
+
+const {title = "Ron Vs Harry", creator, book = "harry potter", genre = "Sci-Fi" } = req.body;
 try{
   const token = req.header("x-auth-token");
   if(!token) return res.json(false);
@@ -31,9 +34,20 @@ try{
   const user = await User.findById(verified.id);
   if(!user) return res.json(false);
 
+//not working verification of entered fields.
+
+
+/*
+if(!title || !book || !creator || !genre)
+return res.status(400).json({msg: "Not all fields have been entered."});
+*/
+
+
   const newDiscussion = new Discussion({
-    title,
+    title: title,
     creator: user.displayName,
+    book: book,
+    genre: genre
 });
 const creatediscussion = await newDiscussion.save();
         res.json(creatediscussion);
@@ -43,6 +57,38 @@ const creatediscussion = await newDiscussion.save();
  }catch(err){ 
      res.status(500).json({error: err.message});
  }
-})
+});
+
+
+
+
+router.post("/createcomment", async (req, res) =>{
+  //comments
+
+  
+  const discu = await Discussion.findById("601ad67671c72930180a3d25")
+  const discussion = await Discussion.findById(req.user);
+  
+  try{
+    const token = req.header("x-auth-token");
+    if(!token) return res.json(false);
+  
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if(!verified) return res.json(false);
+  
+    const user = await User.findById(verified.id);
+    if(!user) return res.json(false);
+  
+
+
+
+    return res.json(discu._id);
+   }catch(err){ 
+       res.status(500).json({error: err.message});
+   }
+  });
+
+
+
 
 module.exports = router;
