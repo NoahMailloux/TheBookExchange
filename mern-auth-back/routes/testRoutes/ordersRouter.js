@@ -53,7 +53,7 @@ router.get("/getAllOrders", async (req, res) => { //when /getAllOrders is reques
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getAllOrders" //this route sends back all orders records
+}); // end router.get("/getAllOrders" //this route sends back all orders records
 
 router.get("/getOrder", async (req, res) => { //when /getOrder is requested this will be run
     try{
@@ -65,7 +65,7 @@ router.get("/getOrder", async (req, res) => { //when /getOrder is requested this
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getOrder" //this route sends back all orders for a specific order ID
+}); // end router.get("/getOrder" //this route sends back all orders for a specific order ID
 
 router.get("/getUserOrders", async (req, res) => { //when /getUserOrders is requested this will be run
     try{
@@ -76,7 +76,7 @@ router.get("/getUserOrders", async (req, res) => { //when /getUserOrders is requ
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getUserOrders" //this route finds all orders for a specific user
+}); // end router.get("/getUserOrders" //this route finds all orders for a specific user
 
 router.delete("/deleteOrder", auth, async(req, res) =>{ //when /deleteOrder is requested this will be run
     try{
@@ -86,6 +86,6 @@ router.delete("/deleteOrder", auth, async(req, res) =>{ //when /deleteOrder is r
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}); // end router.post("/deleteOrder" //this route deletes an order
+}); // end router.delete("/deleteOrder" //this route deletes an order
 
 module.exports = router;

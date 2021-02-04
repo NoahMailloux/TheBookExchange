@@ -42,7 +42,7 @@ router.get("/getAllSharedBooks", async (req, res) => { //when /getAllSharedBooks
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getAllSharedBooks" //this route sends back all shared book records
+}); // end router.get("/getAllSharedBooks" //this route sends back all shared book records
 
 
 router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requested this will be run
@@ -54,7 +54,7 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/mySharedBooks" //this route grabs the list of books a specific user has shared 
+}); // end router.get("/mySharedBooks" //this route grabs the list of books a specific user has shared 
 
 router.route("/shareBook").post(function(req, res) {
     const token = req.header("x-auth-token"); //grab token
@@ -76,7 +76,7 @@ router.route("/shareBook").post(function(req, res) {
     }catch(err){
         res.status(500).json({error: err.message});
     }
-});  // end router.post("/MySharedBooks" //this route updates a sharedBook record
+});  // end router.route("/shareBook").post //this route updates a sharedBook record
 //^^
 //make "share book" (updates reciever in record) route (take shareID(_id) and recieverID and add new rec)
 // shareID, recieverID in post body

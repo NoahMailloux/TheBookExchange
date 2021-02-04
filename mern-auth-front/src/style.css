@@ -40,6 +40,13 @@ body{
     padding: 1rem;
 }
 
+.homeTop{
+    border-color: #b91b1b;
+    height: 450px;
+    border: 5px solid #c2c2c2;
+    border-radius: 1px;
+}
+
 .container{
     margin: 0 auto;
     max-width: 900px;

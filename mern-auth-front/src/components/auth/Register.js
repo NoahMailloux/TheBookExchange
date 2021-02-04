@@ -10,6 +10,7 @@ export default function Register() {
     const [password, setPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState();
     const [displayName, setDisplayName] = useState();
+    const [address, setAddress] = useState();
     const [error, setError] = useState();
 
     const {setUserData} = useContext(UserContext);
@@ -71,6 +72,13 @@ export default function Register() {
                 id="register-display-name" 
                 type ="text"
                 onChange={(e) => setDisplayName(e.target.value)}
+                />
+
+                <label htmlFor="register-address">Address</label>
+                <input 
+                id="register-address" 
+                type ="text"
+                onChange={(e) => setAddress(e.target.value)}
                 />
 
                 <input type ="submit" value="Register"/>

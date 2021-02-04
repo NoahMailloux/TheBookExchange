@@ -35,7 +35,7 @@ router.get("/getAllBooks", async (req, res) => { //when /getAllBooks is requeste
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getAllBooks" //this route sends back all book records
+}); // end router.get("/getAllBooks" //this route sends back all book records
 
 router.get("/getBook", async (req, res) => { //when /myFollows is requested this will be run
     try{
@@ -47,7 +47,7 @@ router.get("/getBook", async (req, res) => { //when /myFollows is requested this
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getBook" //this route sends back a record for a specfic book
+}); // end router.get("/getBook" //this route sends back a record for a specfic book
 
 router.delete("/deleteBook", auth, async(req, res) =>{ //when /unFollow is requested this will be run
     try{
@@ -57,7 +57,7 @@ router.delete("/deleteBook", auth, async(req, res) =>{ //when /unFollow is reque
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}); // end router.post("/deleteBook" //this route will delete a book
+}); // end router.delete("/deleteBook" //this route will delete a book
 
 module.exports = router;
 

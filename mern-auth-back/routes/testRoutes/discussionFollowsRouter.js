@@ -43,7 +43,7 @@ router.get("/getDiscussionFollows", async (req, res) => { //when /getDiscussionF
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/getDiscussionFollows" //this route sends back all discussion follows records for a specific discussion
+}); // end router.get("/getDiscussionFollows" //this route sends back all discussion follows records for a specific discussion
 
 router.get("/myFollows", async (req, res) => { //when /myFollows is requested this will be run
     try{
@@ -54,7 +54,7 @@ router.get("/myFollows", async (req, res) => { //when /myFollows is requested th
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/myFollows" //this route sends back all discussion follows records objects for a specific user
+}); // end router.get("/myFollows" //this route sends back all discussion follows records objects for a specific user
 
 router.delete("/unFollow", auth, async(req, res) =>{ //when /unFollow is requested this will be run
     try{
@@ -64,7 +64,7 @@ router.delete("/unFollow", auth, async(req, res) =>{ //when /unFollow is request
     }catch(err){
         res.status(500).json({error: err.message});
     }
-}); // end router.post("/unFollow" //this route will unfollow a discussion for a specific user
+}); // end router.delete("/unFollow" //this route will unfollow a discussion for a specific user
 
 // DiscussionFollow._id grabs id of specific discussion follow record
 
