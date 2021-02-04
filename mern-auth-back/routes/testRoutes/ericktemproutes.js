@@ -6,7 +6,7 @@ const User = require("../../models/userModel");
 const Discussion = require("../../models/discussionmodel");
 const Comment = require("../../models/commentsmodel")
 const { db } = require("../../models/userModel");
-const Axios = require ("axios");
+const DiscussionFollows = require("../../models/testModels/discussionFollowsModel"); //require discussionFollowsModel
 
 /*Ignore this */
 //Find a user
@@ -64,15 +64,6 @@ const creatediscussion = await newDiscussion.save();
 
 router.post("/createcomment", async (req, res) =>{
   //comments
-
-  //get discussion followers for the discussion
-  let discId = req.query.did;
-  const getDiscussionFollows = await Axios.get(
-    "http://localhost:5001/discussionFollows/getDiscussionFollows",
-    {did: discId}
-  );
-  console.log(getDiscussionFollows)
-  //After we get the followers for the discussion, notify all users by adding notifications
   
   //date and time
   var currentdate = new Date(); 
@@ -102,6 +93,15 @@ router.post("/createcomment", async (req, res) =>{
   
     const discussionID = discu._id;
 
+    //get discussion followers for the discussion
+  let discId = req.body.did;
+  console.log(discId)
+  const follows = await DiscussionFollows.find({discussionID: discId}, 'userID').exec();
+  //for each follower add a notification in the table
+  
+  console.log(follows)
+  //After we get the followers for the discussion, notify all users by adding notifications
+
     const newComment = new Comment({
       discussion_id: discu._id,
       user_id: user.id,
@@ -111,9 +111,6 @@ router.post("/createcomment", async (req, res) =>{
 
   const createcomment = await newComment.save();
   res.json(createcomment);
-
-
-    return res.json(discu._id);
    }catch(err){ 
     console.log(err)
        res.status(500).json({error: err.message});
