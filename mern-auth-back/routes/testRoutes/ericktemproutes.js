@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const User = require("../../models/userModel");
 const Discussion = require("../../models/discussionmodel");
+const Comment = require("../../models/commentsmodel")
 const { db } = require("../../models/userModel");
 
 /*Ignore this */
@@ -24,7 +25,7 @@ router.post("/creatediscussion", async (req, res) =>{
 
 const discussion = await Discussion.findById(req.user);
 
-const {title = "Ron Vs Harry", creator, book = "harry potter", genre = "Sci-Fi" } = req.body;
+const {title = "Ron Vs Harry", creator = "erick", book = "harry potter", genre = "Sci-Fi", comment } = req.body;
 try{
   const token = req.header("x-auth-token");
   if(!token) return res.json(false);
@@ -35,26 +36,23 @@ try{
   const user = await User.findById(verified.id);
   if(!user) return res.json(false);
 
-//not working verification of entered fields.
 
-
-/*
 if(!title || !book || !creator || !genre)
 return res.status(400).json({msg: "Not all fields have been entered."});
-*/
+
 
 
   const newDiscussion = new Discussion({
     title: title,
-    creator: user.displayName,
+    creator: user._id,
     book: book,
-    genre: genre
+    genre: genre,
+    //comment: comment is going to be connected through axios
 });
 const creatediscussion = await newDiscussion.save();
         res.json(creatediscussion);
 
 
-  return res.json(true);
  }catch(err){ 
      res.status(500).json({error: err.message});
  }
@@ -66,8 +64,20 @@ const creatediscussion = await newDiscussion.save();
 router.post("/createcomment", async (req, res) =>{
   //comments
 
-  
-  const discu = await Discussion.findById("601ad67671c72930180a3d25")
+  //date and time
+  var currentdate = new Date(); 
+        var lastUpdated = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds(); //grabs current dateTime
+        lastUpdated.toString();
+
+
+
+  const {discussion_id,user_id, posted_on = Date.now, comment } = req.body;
+  const discu = await Discussion.findById("601b4ccae79f885cdcece92e")
   const discussion = await Discussion.findById(req.user);
   
   try{
@@ -80,16 +90,31 @@ router.post("/createcomment", async (req, res) =>{
     const user = await User.findById(verified.id);
     if(!user) return res.json(false);
   
+    const discussionID = discu._id;
 
+    const newComment = new Comment({
+      discussion_id: discu._id,
+      user_id: user.id,
+      posted_on: currentdate,
+      comment: "testsss"
+  });
+
+  const createcomment = await newComment.save();
+  res.json(createcomment);
 
 
     return res.json(discu._id);
    }catch(err){ 
+    console.log(err)
        res.status(500).json({error: err.message});
    }
   });
 
+router.post("listcomments", async (req, res) => {
 
+
+  
+});
 router.post("/listdiscussions", async (req, res) =>{
   //comments
 
@@ -110,7 +135,7 @@ router.post("/listdiscussions", async (req, res) =>{
   const collection = db.collection('discussions');
 
   collection.find({}).toArray(function(err, discussions){
-    
+
     console.log(JSON.stringify(discussions, null, 2));
   });
 
