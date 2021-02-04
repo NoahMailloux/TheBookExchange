@@ -7,11 +7,10 @@ const Books = require("../../models/testModels/booksModel"); //require booksMode
 
 router.post("/addBook", async (req, res) => { //when /addBook is requested this will be run
     try{
-        const {bookID, name, genreID, rating, price, author, synopsis} = req.body; //grab info from body
+        const {name, genreID, rating, price, author, synopsis} = req.body; //grab info from body
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         const newBook = new Book({
-            bookID,
             name,
             genreID,
             rating,
@@ -42,7 +41,7 @@ router.get("/getBook", async (req, res) => { //when /myFollows is requested this
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         let did = req.query.did; // did is database generated unique ID
-        const myBooks = await Book.find({bookID:did}).exec(); //grabs all sharedBooks for a specific user
+        const myBooks = await Book.find({name:did}).exec(); //grabs all books for a specific name
         res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
     }catch(err){
         res.status(500).json({error: err.message});

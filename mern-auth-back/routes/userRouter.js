@@ -83,6 +83,8 @@ router.post("/login", async (req, res) =>{
 
 router.delete("/delete", auth, async(req, res) =>{
     try{
+    const token = req.header("x-auth-token"); //grab token
+    data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode    
      const deletedUser = await User.findByIdAndDelete(req.user);
      res.json(deletedUser);
     }catch(err){
@@ -117,8 +119,6 @@ router.get("/", auth, async (req, res) =>{
     });
 });
 
-
-//broken
 router.get("/subscribeToGenre", async (req, res) => { //when /subscribeToGenre is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token

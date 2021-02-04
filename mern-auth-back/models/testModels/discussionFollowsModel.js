@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const discussionFollowsSchema = new mongoose.Schema({
-    discussionID: {type: Number, required: true, unique: false},
+    discussionID: {type: String, required: true, unique: false},
     userID: {type: String, required: true, unique: false},
     bookID: {type: Number, required: true, unique: false},
     lastUpdated: {type: String, required: true, unique: false}
