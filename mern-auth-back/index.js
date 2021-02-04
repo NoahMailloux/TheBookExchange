@@ -39,3 +39,4 @@ mongoose.connect(
     app.use("/books", require("./routes/testRoutes/booksRouter"));
     app.use("/genres", require("./routes/testRoutes/genresRouter"));
     app.use("/orders", require("./routes/testRoutes/ordersRouter"));
+    app.use("/monthlybook", require("./routes/testRoutes/thismonthbookRouterTest"));
