@@ -37,8 +37,9 @@ router.post("/followDiscussion", async (req, res) => { //when /followDiscussion 
 router.get("/getDiscussionFollows", async (req, res) => { //when /getDiscussionFollows is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
+        let did = req.query.did;
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-            const follows = await DiscussionFollow.find().exec(); //grabs all discussionFollow records
+            const follows = await DiscussionFollow.find({discussionID: did}).exec(); //grabs all discussionFollow records for discussion id
             res.json(JSON.stringify(follows)) //sends back all discussion follows records 
     }catch(err){
         res.status(500).json({error: err.message});

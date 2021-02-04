@@ -6,6 +6,7 @@ const User = require("../../models/userModel");
 const Discussion = require("../../models/discussionmodel");
 const Comment = require("../../models/commentsmodel")
 const { db } = require("../../models/userModel");
+const Axios = require ("axios");
 
 /*Ignore this */
 //Find a user
@@ -64,6 +65,15 @@ const creatediscussion = await newDiscussion.save();
 router.post("/createcomment", async (req, res) =>{
   //comments
 
+  //get discussion followers for the discussion
+  let discId = req.query.did;
+  const getDiscussionFollows = await Axios.get(
+    "http://localhost:5001/discussionFollows/getDiscussionFollows",
+    {did: discId}
+  );
+  console.log(getDiscussionFollows)
+  //After we get the followers for the discussion, notify all users by adding notifications
+  
   //date and time
   var currentdate = new Date(); 
         var lastUpdated = "Last Sync: " + currentdate.getDate() + "/"
@@ -76,7 +86,7 @@ router.post("/createcomment", async (req, res) =>{
 
 
 
-  const {discussion_id,user_id, posted_on = Date.now, comment } = req.body;
+  const {discussion_id, comment } = req.body;
   const discu = await Discussion.findById("601b4ccae79f885cdcece92e")
   const discussion = await Discussion.findById(req.user);
   
@@ -96,7 +106,7 @@ router.post("/createcomment", async (req, res) =>{
       discussion_id: discu._id,
       user_id: user.id,
       posted_on: currentdate,
-      comment: "testsss"
+      comment: comment
   });
 
   const createcomment = await newComment.save();

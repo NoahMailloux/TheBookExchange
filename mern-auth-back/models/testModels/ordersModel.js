@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const ordersSchema = new mongoose.Schema({
-    orderID:  {type: Number, required: true, unique: false},
     address: {type: String, required: true, unique: false},
     tracking_num: {type: Number, required: false, unique: false},
     price: {type: Number, required: true, unique: false},
