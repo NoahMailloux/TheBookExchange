@@ -42,6 +42,7 @@ body{
 
 .homeTop{
     border-color: #b91b1b;
+    background-image: url(./images/Raster.jpg);
     height: 450px;
     border: 5px solid #c2c2c2;
     border-radius: 1px;

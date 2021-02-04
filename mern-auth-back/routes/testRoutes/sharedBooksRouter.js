@@ -57,27 +57,18 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
 }); // end router.get("/mySharedBooks" //this route grabs the list of books a specific user has shared 
 
 
-//broken
+//broken ..... code below is notes for issue
 router.get("/shareBook", async (req, res) => {
     try{
         const token = req.header("x-auth-token"); //grab token
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        //let did = req.query.did; //send a did in the query with the bookID as the value
-        //var user_id = data.id; //grabs the users auto generated id from the token
-        const editShareBook = await SharedBook.find({ bookID: req.body.book_id, sharerID: data.id}).exec();
-        editShareBook.receiverID = req.body.receiver_id;
-       
-        // SharedBook.findByIdAndUpdate(sharerID, { receiverID: req.body.did }, //find the logged in users shareBook record and updates the reciever.
-          //  function (err, docs) { 
-          //  if (err){ 
-         //   console.log(err) 
-         //   } 
-         //   else{ 
-         //   console.log("Updated Reciever: ", docs); 
-         //   } 
-         //   }); 
-            res.json(JSON.stringify(myBooks))
-           // res.json("Book shared") //sends back update confirm
+        //const editShareBook = await SharedBook.find({ bookID: req.body.book_id, sharerID: data.id}).exec();
+       // editShareBook.receiverID = req.body.receiver_id;
+
+        const query = { bookID: req.body.book_id, sharerID: data.id };
+        SharedBook.findOneAndUpdate(query, { receiverID:  req.body.receiver_id}, null, null)
+        //SharedBook.findOneAndUpdate(query, { $set: { receiverID: req.body.receiver_id }}, null, null)
+        res.json("Got here") //sends back update confirm
     }catch(err){
         
         res.status(500).json({error: err.message});
@@ -87,5 +78,29 @@ router.get("/shareBook", async (req, res) => {
 //make "share book" (updates reciever in record) route (take shareID(_id) and recieverID and add new rec)
 // shareID, recieverID in post body
 //update record where shareID = shareID in body. Update the recieverID where recieverID = recieverID in body.
+    //    const sharer = await SharedBook.find({sharerID:did}).exec(); //grabs specific sharedBook record 
+     //   SharedBook.findByIdAndUpdate(
+        //    { _id: sharer }, // value of the _id field
+         //   { receiverID: res.body }, //update
+         //   function(err, result) {
+        //      if (err) {
+          //      res.send(err);
+         //     } else {
+        //        res.send(result);
+         //     }
+        //    }
+        //  ); 
+
+
+        // SharedBook.findByIdAndUpdate(sharerID, { receiverID: req.body.did }, //find the logged in users shareBook record and updates the reciever.
+          //  function (err, docs) { 
+          //  if (err){ 
+         //   console.log(err) 
+         //   } 
+         //   else{ 
+         //   console.log("Updated Reciever: ", docs); 
+         //   } 
+         //   }); 
+
 
 module.exports = router;

@@ -17,7 +17,7 @@ export default function Home() {
             <p>&</p>
             <p>Read New Books For $25 A Month</p>
             </div>
-        <div className="homeTop">
+        <div>
         <p>About The Book Exchange Project</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
