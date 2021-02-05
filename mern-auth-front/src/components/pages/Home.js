@@ -13,15 +13,23 @@ export default function Home() {
     return(
     <div className="page">
         <div className="homeTop">
-            <p className="t1p">Sign-Up To Share Books 
-            With Other Readers & Read New Books 
-            For $25 A Month</p>
+            <div>      
+                <h2 className="t1t">The Book Exchange Project</h2>
+                <h4 className="tLinks"><a className="tLinks" href="http://localhost:3000/register">Register</a></h4>
+                <h4 className="tLinks">|</h4>
+                <h4 className="tLinks"><a className="tLinks" href="http://localhost:3000/login">Login</a></h4>
+            </div>
+
+            <p className="t1p">Sign-Up To Share Books<br></br>
+            With Other Readers<br></br> & <br></br>Read New Books 
+            For <br></br>$25 A Month</p>
+            
             <button className="t1Btn">Sign Me Up</button>
         </div>
         <div>
             <h2 className="t2t"> About The Book Exchange Project</h2>
             <p className="t2p">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            sed do eiusmod tempor incididunt ut labore et dolore magna ailqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
