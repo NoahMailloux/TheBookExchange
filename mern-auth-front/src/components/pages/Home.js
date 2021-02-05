@@ -5,6 +5,7 @@ import UserContext from "../../context/UserContext";
 export default function Home() {
     const {userData} = useContext(UserContext);
     const history = useHistory();
+    const register = () => history.push("/register")
 
     useEffect(() => {
         if(!userData.user) history.push("/login")
@@ -24,7 +25,7 @@ export default function Home() {
             With Other Readers<br></br> & <br></br>Read New Books 
             For <br></br>$25 A Month</p>
             
-            <button className="t1Btn">Sign Me Up</button>
+            <button onClick={register} className="t1Btn">Sign Me Up</button>
         </div>
         <div>
             <h2 className="t2t"> About The Book Exchange Project</h2>

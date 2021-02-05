@@ -42,6 +42,58 @@ export default function Register() {
     };
 
     return(
+        <div className="page2">
+            <div classname="loginPageContainer">
+                {error && (
+                <ErrorNotice message={error} clearError={() => setError(undefined)} /> 
+                )}
+                <div className="loginContainer">
+                    <h2 className="loginT">Sign Up</h2>
+                    <h4 className="loginP">Lorem ipsum dolor 
+                    sit amet, consectetur adipiscing elit. 
+                    In nec nibh vitae...</h4>
+                    <form className="form2" onSubmit={submit}>
+                        <input 
+                        placeholder="Email"
+                        id="register-email" 
+                        type ="email" 
+                        onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Password"
+                        id="register-password" 
+                        type ="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Repeat Password"
+                        type="password" 
+                        placeholder="Verify password"
+                        onChange={(e) => setPasswordCheck(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Display Name"
+                        id="register-display-name" 
+                        type ="text"
+                        onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Password"
+                        id="register-address" 
+                        type ="text"
+                        onChange={(e) => setAddress(e.target.value)}
+                        />
+
+                        <input type ="submit" value="Register"/>
+                    </form>
+                </div> 
+            </div>
+        </div>
+    );
+
+}
+ 
+/*
         <div className="page">
             <h2>Register</h2>
             {error && (
@@ -84,7 +136,4 @@ export default function Register() {
                 <input type ="submit" value="Register"/>
             </form>
         </div>
-    );
-
-}
- 
+*/ /* Original Register*/

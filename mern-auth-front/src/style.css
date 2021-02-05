@@ -101,7 +101,7 @@ body{
     left:35%;
     background-color: #FFFFFF;
     width: 600px;
-    height: 612px;
+    height: 650px;
     text-align: center;
 }
 .loginT{
@@ -114,6 +114,7 @@ body{
 
 }
 .loginP{
+    
     color: #8190A5;
     font-family: Lato;
     font-size: 18px;
