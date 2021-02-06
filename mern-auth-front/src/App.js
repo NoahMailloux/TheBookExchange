@@ -45,7 +45,7 @@ export default function App() {
     <>
         <BrowserRouter>
             <UserContext.Provider value={{ userData, setUserData }}>
-                <Header />
+              
                 <div className="container">
                 <Switch>
                     <Route exact path="/" component={Home} />

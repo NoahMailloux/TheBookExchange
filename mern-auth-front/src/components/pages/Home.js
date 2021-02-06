@@ -8,7 +8,8 @@ export default function Home() {
     const register = () => history.push("/register")
 
     useEffect(() => {
-        if(!userData.user) history.push("/login")
+        if(userData.user) console.log("logged in")
+        if(!userData.user) console.log("Not logged in")
     });
 
     return(
