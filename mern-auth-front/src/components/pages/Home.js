@@ -29,7 +29,7 @@ export default function Home() {
             <button onClick={register} className="t1Btn">Sign Me Up</button>
         </div>
         <div>
-            <h2 className="t2t"> About The Book Exchange Project</h2>
+            <h2 className="t2t">About The Book Exchange Project</h2>
             <p className="t2p">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna ailqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
