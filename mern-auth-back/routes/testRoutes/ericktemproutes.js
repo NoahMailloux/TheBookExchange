@@ -19,7 +19,7 @@ router.get("/", auth, async (req, res) =>{
 });
 //
 
-
+//CREATE DISCUSSION
 router.post("/creatediscussion", async (req, res) =>{
 //comments
 
@@ -61,11 +61,11 @@ const creatediscussion = await newDiscussion.save();
 
 
 
-
+//CREATE COMMENT
 router.post("/createcomment", async (req, res) =>{
   //comments
   
-  //date and time
+  //date and time for comment in mongodb
   var currentdate = new Date(); 
         var lastUpdated = "Last Sync: " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
@@ -109,6 +109,7 @@ router.post("/createcomment", async (req, res) =>{
       comment: comment
   });
 
+  
   const createcomment = await newComment.save();
   res.json(createcomment);
    }catch(err){ 
@@ -117,37 +118,7 @@ router.post("/createcomment", async (req, res) =>{
    }
   });
 
-router.post("listcomments", async (req, res) => {
-
-  const comments = await comments.findById(req.user);
-
-  try{
-    const token = req.header("x-auth-token");
-    if(!token) return res.json(false);
-  
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
-    if(!verified) return res.json(false);
-  
-    const user = await User.findById(verified.id);
-    if(!user) return res.json(false);
-
-
-//print all discussion records
-  const collection = db.collection('comments');
-
-  collection.find({}).toArray(function(err, comments){
-
-    console.log(JSON.stringify(comments, null, 2));
-  });
-
-
-
-    return res.json(true);
-   }catch(err){ 
-       res.status(500).json({error: err.message});
-   }
-  
-});
+  //LIST DISCUSSIONS
 router.post("/listdiscussions", async (req, res) =>{
   //comments
 
@@ -179,6 +150,41 @@ router.post("/listdiscussions", async (req, res) =>{
        res.status(500).json({error: err.message});
    }
   });
+
+
+  //LIST COMMENTS
+  router.post("/listcomments", async (req, res) =>{
+    //comments
+  
+    const comments = await Comments.findById(req.user);
+
+  try{
+    const token = req.header("x-auth-token");
+    if(!token) return res.json(false);
+  
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if(!verified) return res.json(false);
+  
+    const user = await User.findById(verified.id);
+    if(!user) return res.json(false);
+
+
+//print all discussion records
+  const collection = db.collection('comments');
+
+  collection.find({}).toArray(function(err, comments){
+
+    console.log(JSON.stringify(comments, null, 2));
+  });
+
+
+
+    return res.json(true);
+   }catch(err){ 
+       res.status(500).json({error: err.message});
+   }
+    });
+
 
 
 module.exports = router;
