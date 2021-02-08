@@ -1,6 +1,7 @@
 import React, {useEffect, useContext}  from 'react';
 import {useHistory} from "react-router-dom";
 import UserContext from "../../context/UserContext";
+import AuthOptions from '../auth/AuthOptions';
 
 export default function Home() {
     const {userData} = useContext(UserContext);
@@ -8,7 +9,7 @@ export default function Home() {
     const register = () => history.push("/register")
 
     useEffect(() => {
-        if(userData.user) console.log("logged in")
+        if(userData.user) history.push("/HomeLoggedIn")
         if(!userData.user) console.log("Not logged in")
     });
 
@@ -17,18 +18,16 @@ export default function Home() {
         <div className="homeTop">
             <div>      
                 <h2 className="t1t">The Book Exchange Project</h2>
-                <h4 className="tLinks"><a className="tLinks" href="http://localhost:3000/register">Register</a></h4>
-                <h4 className="tLinks">|</h4>
-                <h4 className="tLinks"><a className="tLinks" href="http://localhost:3000/login">Login</a></h4>
+                <AuthOptions/>
             </div>
-
-            <p className="t1p">Sign-Up To Share Books<br></br>
-            With Other Readers<br></br> & <br></br>Read New Books 
-            For <br></br>$25 A Month</p>
-            
-            <button onClick={register} className="t1Btn">Sign Me Up</button>
+            <div className="openheader">
+                <p className="t1p">Sign-Up To Share Books<br></br>
+                With Other Readers<br></br> & <br></br>Read New Books 
+                For <br></br>$25 A Month</p>
+                <button onClick={register} className="t1Btn">Sign Me Up</button>
+            </div>
         </div>
-        <div>
+        <div className="aboutSection">
             <h2 className="t2t">About The Book Exchange Project</h2>
             <p className="t2p">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna ailqua.
@@ -38,14 +37,14 @@ export default function Home() {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in 
             culpa qui officia deserunt mollit anim id est laborum</p>
             <p className="t2p2">Some Of Our Favorites!</p>
-        </div>
-        <div>
-            <div className="homeLeftArrow"></div>
-            <div className="homeBook1"></div>
-            <div className="homeBook2"></div>
-            <div className="homeBook3"></div>
-            <div className="homeBook4"></div>
-            <div className="homeRightArrow"></div>
+            <div>
+                <div className="homeLeftArrow"></div>
+                <div className="homeBook1"></div>
+                <div className="homeBook2"></div>
+                <div className="homeBook3"></div>
+                <div className="homeBook4"></div>
+                <div className="homeRightArrow"></div>
+            </div>
         </div>
     </div>
     );

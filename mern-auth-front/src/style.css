@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 /* reset */
-
+#root {
+    width: 100%;
+    background-color: #E1E1E1;
+}
 *   {
     margin:0;
     padding:0;
@@ -34,16 +37,23 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 
 body{
     font-family: "Roboto", sans-serif;
+    width:100%;
+    height: 100%;
 }
 
 .page{
-    padding:1rem;
+    height:100%;
+    background-color: #E1E1E1;
 
 }
 
 .container{
     margin: 0 auto;
-    max-width: 900px;
+    width:100%;
+    max-width: 100%;
+    padding: none;
+    margin:none;
+    height: 100%;
 }
 
 /* header */
@@ -254,10 +264,11 @@ body{
     background-image: url(./images/Raster.jpg);
     background-size: cover;
     border-color: #b91b1b;
-    height: 450px;
+    height: 100%;
     border: 2px solid #c2c2c2;
     border-radius:1px;
 }
+
 .t1t {
     color: #FFFFFF;
     font-family: Lato;
@@ -275,24 +286,29 @@ text-align: left;
 float:right;
   }
 .t1p {
-    margin-left:-50px;
-    margin-top: 120px;
+    margin-left: 5%;
+    margin-top: 10%;
     color: #FFFFFF;
     font-family: Lato;
     font-size: 30px;
-    line-height: 25px;
+    line-height: 130%;
     width: 575px;
     text-align: center;
+    font-weight: bold;
   }
+
 .t1Btn{
     color: #FFFFFF;
     font-family: Lato;
     font-size: 35px;
     line-height: 45px;
     background-color: #3394CC;
+    margin-top: 10%;
     border-radius: 36px;
-    width: 444px;
-    height: 100px;
+    width: 20%;
+    height: 70px;
+    margin-left: 13%;
+    font-weight: bold;
 }
 .t2t{
     color: #47525E;
@@ -304,20 +320,25 @@ float:right;
 .t2p{
     color: #47525E;
     font-family: Lato;
-    font-size: 28px;
+    font-size: 1.5rem;
     line-height: 36px;
-    width: 801px;
+    font-weight: 20%;
+    width: 100%;
     text-align: center;
-      
+    
 }
 .t2p2{
     color: #47525E;
     font-family: Lato;
-    font-size: 39px;
+    font-size: 2rem;
     line-height: 50px;
     text-align: center; 
+    font-weight: bold;
 }
-
+.aboutSection{
+    width:50%;
+    margin: auto;
+}
 .homeBook1 {
     background-image: url(./images/ExampleBook1.png);
     background-size: cover;
@@ -363,16 +384,8 @@ float:right;
     height: 64px;
     float: left;
   }
-
-  
-/* media queries*/
-
-@media screen and (max-width:550px){
-    #header .title {
-        font-size: 1.2rem
-    }
-    #header .auth-options button {
-        padding: 0 0.5rem;
-        font-size: 0.9rem;
-    }
+/* Logged-in Page */
+.page-loggedin{
+    background-color: #E1E1E1;
+    width: 100%;
 }

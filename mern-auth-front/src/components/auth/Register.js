@@ -66,7 +66,6 @@ export default function Register() {
                         onChange={(e) => setPassword(e.target.value)}
                         />
                         <input 
-                        placeholder="Repeat Password"
                         type="password" 
                         placeholder="Verify password"
                         onChange={(e) => setPasswordCheck(e.target.value)}
