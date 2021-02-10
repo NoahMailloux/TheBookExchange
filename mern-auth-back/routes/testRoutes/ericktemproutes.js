@@ -6,7 +6,7 @@ const User = require("../../models/userModel");
 const Discussion = require("../../models/discussionmodel");
 const Comment = require("../../models/commentsmodel")
 const { db } = require("../../models/userModel");
-const DiscussionFollows = require("../../models/testModels/discussionFollowsModel"); //require discussionFollowsModel
+const DiscussionFollows = require("../../models/discussionFollowsModel"); //require discussionFollowsModel
 
 /*Ignore this */
 //Find a user

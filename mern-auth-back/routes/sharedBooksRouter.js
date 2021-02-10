@@ -1,14 +1,19 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../../middleware/auth");
-const User = require("../../models/userModel");
-const SharedBooks = require("../../models/testModels/sharedBooksModel"); //require sharedBooksModel
+const auth = require("../middleware/auth");
+const User = require("../models/userModel");
+const SharedBooks = require("../models/sharedBooksModel"); //require sharedBooksModel
 
 router.post("/addSharedBook", async (req, res) => { //when /addSharedBook is requested this will be run
     try{
         const {bookID, receiverID } = req.body; //grab info from body
         const token = req.header("x-auth-token"); //grab token
+        if(!token) return res.json(false); //if no token, don't accept
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false); //if not a real token, don't accept
+        const user = await User.findById(verified.id);
+        if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         var currentdate = new Date(); 
         var lastUpdated = "Last Sync: " + currentdate.getDate() + "/"
@@ -30,37 +35,53 @@ router.post("/addSharedBook", async (req, res) => { //when /addSharedBook is req
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.post("/addSharedBook" //this route creates a new shared book record
+}); // end router.post("/addSharedBook" //This route creates a new shared book record
+//Pass the bookID followed by the receiverID in req.body
 
 
 router.get("/getAllSharedBooks", async (req, res) => { //when /getAllSharedBooks is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
+        if(!token) return res.json(false); //if no token, don't accept
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false); //if not a real token, don't accept
+        const user = await User.findById(verified.id);
+        if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         const books = await SharedBook.find().exec(); //grabs all shared book records by bookID
         res.json(JSON.stringify(books)) //sends back all shared book records 
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.get("/getAllSharedBooks" //this route sends back all shared book records
+}); // end router.get("/getAllSharedBooks" //This route sends back all shared book records
 
 
 router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
+        if(!token) return res.json(false); //if no token, don't accept
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false); //if not a real token, don't accept
+        const user = await User.findById(verified.id);
+        if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for a specific user
+        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user
         res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.get("/mySharedBooks" //this route grabs the list of books a specific user has shared 
+}); // end router.get("/mySharedBooks" //This route grabs the list of books the currently logged in user has shared 
 
 
 //broken ..... code below is notes for issue
 router.get("/shareBook", async (req, res) => {
     try{
         const token = req.header("x-auth-token"); //grab token
+        if(!token) return res.json(false); //if no token, don't accept
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false); //if not a real token, don't accept
+        const user = await User.findById(verified.id);
+        if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
         //const editShareBook = await SharedBook.find({ bookID: req.body.book_id, sharerID: data.id}).exec();
        // editShareBook.receiverID = req.body.receiver_id;
@@ -73,7 +94,10 @@ router.get("/shareBook", async (req, res) => {
         
         res.status(500).json({error: err.message});
     }
-});  // end router.route("/shareBook").post //this route updates a sharedBook record
+});  // end router.route("/shareBook").post //This route updates a sharedBook record
+
+module.exports = router;
+
 //^^
 //make "share book" (updates reciever in record) route (take shareID(_id) and recieverID and add new rec)
 // shareID, recieverID in post body
@@ -103,4 +127,3 @@ router.get("/shareBook", async (req, res) => {
          //   }); 
 
 
-module.exports = router;

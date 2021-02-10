@@ -19,7 +19,7 @@ export default function Register() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const newUser = {email, password, passwordCheck, displayName};
+            const newUser = {email, password, passwordCheck, displayName, address};
             await Axios.post(
                 "http://localhost:5001/users/register",
                 newUser
@@ -77,7 +77,7 @@ export default function Register() {
                         onChange={(e) => setDisplayName(e.target.value)}
                         />
                         <input 
-                        placeholder="Password"
+                        placeholder="Address"
                         id="register-address" 
                         type ="text"
                         onChange={(e) => setAddress(e.target.value)}
