@@ -2,6 +2,7 @@ import React, {useEffect, useContext}  from 'react';
 import {useHistory} from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import LoggedInH from "../layout/LoggedInHeader";
+import "../layout/Dashboard.css";
 
 
 export default function HomeLoggedInH() {
@@ -16,6 +17,9 @@ export default function HomeLoggedInH() {
     return(
     <div className="page-loggedin">
         <LoggedInH/>
+        <div className="page-contents">
+
+        </div>
     </div>
     );
 
