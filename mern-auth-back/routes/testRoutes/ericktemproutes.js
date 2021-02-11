@@ -79,7 +79,7 @@ router.post("/createcomment", async (req, res) =>{
     const user = await User.findById(verified.id);
     if(!user) return res.json(false);
   
-
+    
 
 
     return res.json(discu._id);
