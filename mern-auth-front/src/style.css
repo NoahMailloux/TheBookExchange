@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 /* reset */
-
+#root {
+    width: 100%;
+    background-color: #E1E1E1;
+}
 *   {
     margin:0;
     padding:0;
@@ -34,23 +37,23 @@ h1, h2, h3, h4, h5, h6, p, ul, ol {
 
 body{
     font-family: "Roboto", sans-serif;
+    width:100%;
+    height: 100%;
 }
 
 .page{
-    padding: 1rem;
-}
+    height:100%;
+    background-color: #E1E1E1;
 
-.homeTop{
-    border-color: #b91b1b;
-    background-image: url(./images/Raster.jpg);
-    height: 450px;
-    border: 5px solid #c2c2c2;
-    border-radius: 1px;
 }
 
 .container{
     margin: 0 auto;
-    max-width: 900px;
+    width:100%;
+    max-width: 100%;
+    padding: none;
+    margin:none;
+    height: 100%;
 }
 
 /* header */
@@ -85,8 +88,121 @@ body{
 #header .auth-options button:hover {
     background-color: #be3a3a;
 }
+/* Login*/
+.page2{
+    position:fixed;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%; /*^this will make the page take up the whole screen^*/
+    background-color: #47525E;
+    opacity: 0.8;
+}
+.loginPageContainer{
+    position: relative;
+}
+.loginContainer{
 
-/* form */
+    /* Center vertically */
+    position: absolute;
+    top: 20%;
+    left:35%;
+    background-color: #FFFFFF;
+    width: 600px;
+    height: 650px;
+    text-align: center;
+}
+.loginT{
+    margin-top: 75px;
+    color: #47525E;
+    font-family: Lato;
+    font-size: 40px;
+    line-height: 51px;
+    width: 600px;
+
+}
+.loginP{
+    
+    color: #8190A5;
+    font-family: Lato;
+    font-size: 18px;
+    line-height: 28px;
+    width: 369px;
+    margin-left: 110px;
+    text-align: center;
+    margin-bottom:35px;
+    margin-top:15px;
+}
+.loginTextBox{
+    background-color: #FFFFFF;
+    border: 1px solid #8492A6;
+    border-radius: 5px;
+    width: 287px;
+    height: 58px;
+}
+.loginBtn{
+    background-color: #47525E;
+    border-radius: 5px;
+    width: 288px;
+    height: 59px;
+}
+.loginForgotPw{
+    color: #8190A5;
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 22px;
+    width: 600px;
+    text-align: center;
+}
+
+/* Form2, login form*/
+
+.form2 label,
+.form2 input{
+    display: block;
+    
+}
+
+.form2 input {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.form2 label {
+    margin-bottom: 0.2rem;
+}
+.form2 input[type="text"],
+.form2 input[type="email"],
+.form2 input[type="password"] {
+    width: 50%;
+    min-height: 50px;
+    padding: 0.3rem;
+    margin-left: 140px;
+    border: 1px solid #c2c2c2;
+    border-radius: 8px;
+    background-color: f0f0f0;
+    font-size: 1.1rem;
+    
+}
+.form2 input:focus{
+    border: 1px solid #50a4e9;
+    box-shadow: inset 0px 0px 5px rgba(38, 142, 228, 0.5);
+    outline: none;
+}
+.form2 input[type="submit"]{
+    margin-left: 146px;
+    padding: 0.3rem 0.5rem;
+    background-color: #47525E;
+    border-radius: 5px;
+    width: 288px;
+    height: 59px;
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 18px;
+}
+
+/* Tutorial form */
 
 .form label,
 .form input{
@@ -143,15 +259,133 @@ body{
     color: white;
 }
 
+/* Home page */
+.homeTop{
+    background-image: url(./images/Raster.jpg);
+    background-size: cover;
+    border-color: #b91b1b;
+    height: 100%;
+    border: 2px solid #c2c2c2;
+    border-radius:1px;
+}
 
-/* media queries*/
+.t1t {
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 40px;
+    line-height: 71px;
+    text-align: left;
+    float:left;
+  }
+.tLinks {
+color: #FFFFFF;
+font-family: Lato;
+font-size: 25px;
+line-height: 42px;
+text-align: left;
+float:right;
+  }
+.t1p {
+    margin-left: 5%;
+    margin-top: 10%;
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 30px;
+    line-height: 130%;
+    width: 575px;
+    text-align: center;
+    font-weight: bold;
+  }
 
-@media screen and (max-width:550px){
-    #header .title {
-        font-size: 1.2rem
-    }
-    #header .auth-options button {
-        padding: 0 0.5rem;
-        font-size: 0.9rem;
-    }
+.t1Btn{
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 35px;
+    line-height: 45px;
+    background-color: #3394CC;
+    margin-top: 10%;
+    border-radius: 36px;
+    width: 20%;
+    height: 70px;
+    margin-left: 13%;
+    font-weight: bold;
+}
+.t2t{
+    color: #47525E;
+    font-family: Lato;
+    font-size: 39px;
+    line-height: 50px;
+    text-align: center;
+}
+.t2p{
+    color: #47525E;
+    font-family: Lato;
+    font-size: 1.5rem;
+    line-height: 36px;
+    font-weight: 20%;
+    width: 100%;
+    text-align: center;
+    
+}
+.t2p2{
+    color: #47525E;
+    font-family: Lato;
+    font-size: 2rem;
+    line-height: 50px;
+    text-align: center; 
+    font-weight: bold;
+}
+.aboutSection{
+    width:50%;
+    margin: auto;
+}
+.homeBook1 {
+    background-image: url(./images/ExampleBook1.png);
+    background-size: cover;
+    width: 178px;
+    height: 284px;
+    float: left;
+  }
+  .homeBook2 {
+    background-image: url(./images/ExampleBook2.png);
+    background-size: cover;
+    width: 178px;
+    height: 284px;
+    float: left;
+    margin-left: 10px
+  }
+  .homeBook3 {
+    background-image: url(./images/ExampleBook3.png);
+    background-size: cover;
+    width: 178px;
+    height: 284px;    
+    float: left;
+    margin-left: 10px
+  }
+  .homeBook4 {
+    background-image: url(./images/ExampleBook4.png);
+    background-size: cover;
+    width: 178px;
+    height: 284px;
+    float: left;
+    margin-left: 10px
+  }
+  .homeLeftArrow{
+    background-image: url(./images/LeftArrow.png);
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    float: left;
+  }
+  .homeRightArrow{
+    background-image: url(./images/RightArrow.png);
+    background-size: cover;
+    width: 64px;
+    height: 64px;
+    float: left;
+  }
+/* Logged-in Page */
+.page-loggedin{
+    background-color: #E1E1E1;
+    width: 100%;
 }

@@ -1,0 +1,32 @@
+.logged-in-layout {
+    width:"100%";
+}
+.top-nav{
+    border-bottom: 1px solid white;
+    height:10%;
+}
+.Menu{
+    height:950px;
+    width: 15%;
+    background-color: #343a40;
+    margin:0;
+}
+.navbtn{
+    width:100%;
+    height:8%;
+    border-bottom:2px solid #E1E1E1;
+}
+.navbtn:hover{
+    background-color: #434a52;
+    transition: background 0.8s ease-in-out;
+}
+.page-contents{
+    border:2px solid black;
+    width:100%;
+    height: 100%;
+    margin-left: 15%;
+    margin-top: 4%;
+    position: absolute;
+    top: 0;
+    
+}

@@ -133,9 +133,7 @@ router.get("/subscribeToGenre", async (req, res) => { //when /subscribeToGenre i
                 console.log("Updated User : ", docs); 
             } 
         }); 
-        //const user = await User.findByIdAndUpdate({userID:data.id}).exec(); //grabs all user records for a specific email
         console.log(user_id)
-       // User.subscribedGenre = "New genre";
         res.json("Genre updated") //sends back update confirm
     }catch(err){
         res.status(500).json({error: err.message});

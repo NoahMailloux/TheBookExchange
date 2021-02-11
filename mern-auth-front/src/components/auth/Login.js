@@ -32,7 +32,37 @@ export default function Login() {
     };
 
     return (
-        <div className="page">
+        <div className="page2">
+            <div classname="loginPageContainer">
+                {error && (
+                <ErrorNotice message={error} clearError={() => setError(undefined)} /> 
+                )}
+                <div className="loginContainer">
+                    <h2 className="loginT">Sign In</h2>
+                    <h4 className="loginP">Lorem ipsum dolor 
+                    sit amet, consectetur adipiscing elit. 
+                    In nec nibh vitae...</h4>
+                    <form className="form2" onSubmit={submit}>
+                        <input 
+                        placeholder="Email"
+                        id="login-email" 
+                        type ="email" 
+                        onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Password"
+                        id="login-password" 
+                        type ="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input type ="submit" value="Log in"/>
+                    </form>
+                    <h4><a href="https://pointerpointer.com/">Forgot your password?</a></h4>
+                </div>
+                
+            </div>
+        </div>
+        /*<div className="page">
             <h2>Log in</h2>
             {error && (
             <ErrorNotice message={error} clearError={() => setError(undefined)} /> 
@@ -53,7 +83,7 @@ export default function Login() {
                 />
                 <input type ="submit" value="Log in"/>
             </form>
-        </div>
+        </div>*/ /* Original login*/
     );      
    
 }
