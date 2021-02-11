@@ -18,6 +18,7 @@ export default function LoggedInHeader() {
     const {userData, setUserData} = useContext(UserContext);
 
     const history = useHistory(); //grabs history of url bar so we can change url
+    const discussions = () => history.push("/discussions");
     const logout = () => {
         setUserData({
             token: undefined,
@@ -44,7 +45,7 @@ export default function LoggedInHeader() {
           </Navbar.Collapse>
         </Navbar>
         <div className="Menu">
-          <button className="navbtn"> </button>
+          <button onClick={discussions} className="navbtn">Discussions</button>
           <button className="navbtn"> </button>
           <button className="navbtn"> </button>
           <button className="navbtn"> </button>

@@ -32,11 +32,12 @@ mongoose.connect(
   
 
     app.use("/users", require("./routes/userRouter")); //if were on /users it will require the middleware
-    app.use("/discussion", require("./routes/testRoutes/ericktemproutes"));
+    app.use("/discussion", require("./routes/discussionRouter"));
     app.use("/discussionFollows", require("./routes/discussionFollowsRouter"));
+    app.use("/comments", require("./routes/commentsRouter"));
     app.use("/sharedBooks", require("./routes/sharedBooksRouter"));
-    app.use("/notifications", require("./routes/testRoutes/notificationRouterTest"));
+    app.use("/notifications", require("./routes/notificationRouter"));
     app.use("/books", require("./routes/booksRouter"));
     app.use("/genres", require("./routes/genresRouter"));
     app.use("/orders", require("./routes/ordersRouter"));
-    app.use("/monthlybook", require("./routes/testRoutes/thismonthbookRouterTest"));
+    app.use("/monthlybook", require("./routes/thismonthbookRouter"));

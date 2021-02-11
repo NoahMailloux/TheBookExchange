@@ -1,9 +1,12 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../../middleware/auth");
-const User = require("../../models/userModel");
-const Discussion = require("../../models/discussionmodel")
+const auth = require("../middleware/auth");
+const User = require("../models/userModel");
+const Discussion = require("../models/discussionmodel");
+const Comment = require("../models/commentsmodel")
+const { db } = require("../models/userModel");
+const DiscussionFollows = require("../models/discussionFollowsModel"); //require discussionFollowsModel
 
 /*Ignore this */
 //Find a user
@@ -16,14 +19,14 @@ router.get("/", auth, async (req, res) =>{
 });
 //
 
-
+//CREATE DISCUSSION
 router.post("/creatediscussion", async (req, res) =>{
 //comments
 
 
 const discussion = await Discussion.findById(req.user);
 
-const {title = "Ron Vs Harry", creator, book = "harry potter", genre = "Sci-Fi" } = req.body;
+const {title = "Ron Vs Harry", creator = "erick", book = "harry potter", genre = "Sci-Fi", comment } = req.body;
 try{
   const token = req.header("x-auth-token");
   if(!token) return res.json(false);
@@ -34,26 +37,23 @@ try{
   const user = await User.findById(verified.id);
   if(!user) return res.json(false);
 
-//not working verification of entered fields.
 
-
-/*
 if(!title || !book || !creator || !genre)
 return res.status(400).json({msg: "Not all fields have been entered."});
-*/
+
 
 
   const newDiscussion = new Discussion({
     title: title,
-    creator: user.displayName,
+    creator: user._id,
     book: book,
-    genre: genre
+    genre: genre,
+    //comment: comment is going to be connected through axios
 });
 const creatediscussion = await newDiscussion.save();
         res.json(creatediscussion);
 
 
-  return res.json(true);
  }catch(err){ 
      res.status(500).json({error: err.message});
  }
@@ -61,14 +61,12 @@ const creatediscussion = await newDiscussion.save();
 
 
 
-
-router.post("/createcomment", async (req, res) =>{
+  //LIST DISCUSSIONS
+router.post("/listdiscussions", async (req, res) =>{
   //comments
 
-  
-  const discu = await Discussion.findById("601ad67671c72930180a3d25")
   const discussion = await Discussion.findById(req.user);
-  
+
   try{
     const token = req.header("x-auth-token");
     if(!token) return res.json(false);
@@ -78,16 +76,23 @@ router.post("/createcomment", async (req, res) =>{
   
     const user = await User.findById(verified.id);
     if(!user) return res.json(false);
-  
-    
 
 
-    return res.json(discu._id);
+//print all discussion records
+  const collection = db.collection('discussions');
+
+  collection.find({}).toArray(function(err, discussions){
+
+    console.log(JSON.stringify(discussions, null, 2));
+  });
+
+
+
+    return res.json(true);
    }catch(err){ 
        res.status(500).json({error: err.message});
    }
   });
-
 
 
 
