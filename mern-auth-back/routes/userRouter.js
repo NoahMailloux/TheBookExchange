@@ -6,11 +6,11 @@ const User = require("../models/userModel");
 
 router.post("/register", async (req, res) => {
     try{
-    let { email, password, passwordCheck, displayName } = req.body;
+    let { email, password, passwordCheck, displayName, address} = req.body;
 
     //validate
 
-    if(!email || !password || !passwordCheck)
+    if(!email || !password || !passwordCheck || !address)
         return res.status(400).json({msg: "Not all fields have been entered."});
     if (password.length < 5)
         return res
@@ -32,11 +32,13 @@ router.post("/register", async (req, res) => {
 
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
-
+        const subscribedGenre = ""; //provide blank genre 
         const newUser = new User({
             email,
             password: passwordHash,
-            displayName
+            displayName,
+            subscribedGenre,
+            address
         });
         const savedUser = await newUser.save();
         res.json(savedUser);
@@ -81,6 +83,8 @@ router.post("/login", async (req, res) =>{
 
 router.delete("/delete", auth, async(req, res) =>{
     try{
+    const token = req.header("x-auth-token"); //grab token
+    data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode    
      const deletedUser = await User.findByIdAndDelete(req.user);
      res.json(deletedUser);
     }catch(err){
@@ -105,6 +109,8 @@ router.post("/tokenIsValid", async (req, res) => {
     }
 });
 
+
+
 router.get("/", auth, async (req, res) =>{
     const user = await User.findById(req.user);
     res.json({
@@ -113,7 +119,26 @@ router.get("/", auth, async (req, res) =>{
     });
 });
 
-module.exports = router;
+router.get("/subscribeToGenre", async (req, res) => { //when /subscribeToGenre is requested this will be run
+    try{
+        const token = req.header("x-auth-token"); //grab token
+        data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
+        var user_id = data.id; //grabs the users auto generated id from the token
+        User.findByIdAndUpdate(user_id, { subscribedGenre: req.body.fid }, //find the user, update the genre with fid in body
+                                    function (err, docs) { 
+            if (err){ 
+                console.log(err) 
+            } 
+            else{ 
+                console.log("Updated User : ", docs); 
+            } 
+        }); 
+        console.log(user_id)
+        res.json("Genre updated") //sends back update confirm
+    }catch(err){
+        res.status(500).json({error: err.message});
+    } //end try,catch
+}); // end router.post("/subscribeToGenre" //this route updates the subscribed genre of the logged in user
 
 
 //Erick added route
@@ -151,6 +176,7 @@ router.post("/creatediscussion", async (req, res) =>{
     }
 })
 
+module.exports = router;
 
 
 //router.get("/test", (req, res) => {

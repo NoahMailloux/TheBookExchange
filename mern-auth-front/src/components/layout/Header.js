@@ -7,7 +7,7 @@ export default function Header() {
         <header id="header">
         <div>
             <Link to ="/">
-                <h1 className="title">MERN auth todo app</h1>
+                <h1 className="title">The Book Exchange</h1>
             </Link> 
             <AuthOptions></AuthOptions>
         </div>

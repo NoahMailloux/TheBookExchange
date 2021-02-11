@@ -10,6 +10,7 @@ export default function Register() {
     const [password, setPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState();
     const [displayName, setDisplayName] = useState();
+    const [address, setAddress] = useState();
     const [error, setError] = useState();
 
     const {setUserData} = useContext(UserContext);
@@ -18,7 +19,7 @@ export default function Register() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const newUser = {email, password, passwordCheck, displayName};
+            const newUser = {email, password, passwordCheck, displayName, address};
             await Axios.post(
                 "http://localhost:5001/users/register",
                 newUser
@@ -41,6 +42,57 @@ export default function Register() {
     };
 
     return(
+        <div className="page2">
+            <div classname="loginPageContainer">
+                {error && (
+                <ErrorNotice message={error} clearError={() => setError(undefined)} /> 
+                )}
+                <div className="loginContainer">
+                    <h2 className="loginT">Sign Up</h2>
+                    <h4 className="loginP">Lorem ipsum dolor 
+                    sit amet, consectetur adipiscing elit. 
+                    In nec nibh vitae...</h4>
+                    <form className="form2" onSubmit={submit}>
+                        <input 
+                        placeholder="Email"
+                        id="register-email" 
+                        type ="email" 
+                        onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Password"
+                        id="register-password" 
+                        type ="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input 
+                        type="password" 
+                        placeholder="Verify password"
+                        onChange={(e) => setPasswordCheck(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Display Name"
+                        id="register-display-name" 
+                        type ="text"
+                        onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Address"
+                        id="register-address" 
+                        type ="text"
+                        onChange={(e) => setAddress(e.target.value)}
+                        />
+
+                        <input type ="submit" value="Register"/>
+                    </form>
+                </div> 
+            </div>
+        </div>
+    );
+
+}
+ 
+/*
         <div className="page">
             <h2>Register</h2>
             {error && (
@@ -73,10 +125,14 @@ export default function Register() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 />
 
+                <label htmlFor="register-address">Address</label>
+                <input 
+                id="register-address" 
+                type ="text"
+                onChange={(e) => setAddress(e.target.value)}
+                />
+
                 <input type ="submit" value="Register"/>
             </form>
         </div>
-    );
-
-}
- 
+*/ /* Original Register*/
