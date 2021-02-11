@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const auth = require("../../middleware/auth");
-const Notif = require("../../models/testModels/notificationsmodel");
+const auth = require("../middleware/auth");
+const Notif = require("../models/notificationsmodel");
 
 // notificationID, userId, description, notificationDate, link
 

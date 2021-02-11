@@ -36,8 +36,8 @@ mongoose.connect(
     app.use("/discussionFollows", require("./routes/discussionFollowsRouter"));
     app.use("/comments", require("./routes/commentsRouter"));
     app.use("/sharedBooks", require("./routes/sharedBooksRouter"));
-    app.use("/notifications", require("./routes/testRoutes/notificationRouter"));
+    app.use("/notifications", require("./routes/notificationRouter"));
     app.use("/books", require("./routes/booksRouter"));
     app.use("/genres", require("./routes/genresRouter"));
     app.use("/orders", require("./routes/ordersRouter"));
-    app.use("/monthlybook", require("./routes/testRoutes/thismonthbookRouter"));
+    app.use("/monthlybook", require("./routes/thismonthbookRouter"));
