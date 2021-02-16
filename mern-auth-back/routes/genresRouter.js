@@ -15,14 +15,19 @@ router.post("/createGenre", async (req, res) => { //when /createGenre is request
         const user = await User.findById(verified.id);
         if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode    
-        let userID = data.id.toString(); // !!!!!!!!!!!!!!!!!! this cant be right !!!!!!!!!!!!!!!!!!!!!
-        const newGenre = new Genre({
-            genreID, // !!!!!!!!!!!!!!!!!! this cant be right !!!!!!!!!!!!!!!!!!!!!
-            genre,
-            description
-        }); //create a new genre record
-        const genreRecord = await newGenre.save(); // save the record
-        res.json(genreRecord); //send back the new record
+        let userID = data.id.toString(); 
+        const possibleGenre = await Genre.find({genre:genre}).exec(); //look for a genre with the same name as value passed in body
+        if(possibleGenre.length==0){ //if it doesn't exist, create a new genre 
+            const newGenre = new Genre({
+                genreID,
+                genre,
+                description
+            }); //create a new genre record
+            const genreRecord = await newGenre.save(); // save the record
+            res.json(genreRecord); //send back the new record
+        }else{
+            res.json("A genre with this name already exists")
+        }
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch

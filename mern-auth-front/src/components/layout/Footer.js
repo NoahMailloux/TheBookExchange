@@ -1,16 +1,25 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import AuthOptions from '../auth/AuthOptions'
+import "./Dashboard.css";
 
 export default function Footer() {
+    const history = useHistory();
+    const mainScreen = () => history.push("/")
+
     return (
-        <header id="footer">
-        <div>
-            <Link to ="/">
-                <h1 className="footer">The Book Exchange 2020</h1>
-            </Link> 
-            <AuthOptions></AuthOptions>
-        </div>
-        </header>
+        
+        <>
+        <footer>
+
+            <div className="footer">
+                <div className="footerInner">
+                <button className="tLinks" onClick={mainScreen}>The Book Exchange 2020</button>
+                </div>
+            </div>
+
+        </footer>
+        </>
     );
 }

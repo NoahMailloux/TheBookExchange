@@ -2,6 +2,7 @@ import React, {useEffect, useContext}  from 'react';
 import {useHistory} from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import AuthOptions from '../auth/AuthOptions';
+import PageBottom from "../layout/Footer";
 
 export default function Home() {
     const {userData} = useContext(UserContext);
@@ -14,6 +15,7 @@ export default function Home() {
     });
 
     return(
+        <>
     <div className="page">
         <div className="homeTop">
             <div>      
@@ -45,8 +47,13 @@ export default function Home() {
                 <div className="homeBook4"></div>
                 <div className="homeRightArrow"></div>
             </div>
+            
         </div>
+        
     </div>
+    <PageBottom/>
+    </>
+    
     );
 
 }
