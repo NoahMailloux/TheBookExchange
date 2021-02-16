@@ -6,7 +6,8 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
 import HomeLoggedIn from "./components/pages/HomeLoggedIn";
-import Discussions from "./components/pages/Discussions"
+import Discussions from "./components/pages/Discussions";
+import Genres from "./components/pages/Genres"
 import "./style.css";
 
 export default function App() {
@@ -52,6 +53,7 @@ export default function App() {
               <Route path="/register" component={Register} />
               <Route path="/homeloggedin" component={HomeLoggedIn} />
               <Route path="/discussions" component={Discussions} />
+              <Route path="/genres" component={Genres} />
             </Switch>
           </div>
         </UserContext.Provider>
