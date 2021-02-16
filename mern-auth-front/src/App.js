@@ -8,29 +8,15 @@ import UserContext from "./context/UserContext";
 import HomeLoggedIn from "./components/pages/HomeLoggedIn";
 import Discussions from "./components/pages/Discussions"
 import CreateDiscussion from "./components/pages/CreateDiscussion"
+import Genres from "./components/pages/Genres"
 import "./style.css";
-import axios from "axios";
 
 export default function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
   });
-/*
-  discuss = {
-    title: '',
-    comment: '',
-    post: []
-  };
 
-  getlistings = () =>{
-    Axios.get("http://localhost:5001/discussion/listdiscussions")
-    .then((response) => {
-      const data = response.data;
-      this.setdiscuss({post: data})
-    })
-  }
-  */
   useEffect(() => {
     const checkedLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");
@@ -69,6 +55,7 @@ export default function App() {
               <Route path="/homeloggedin" component={HomeLoggedIn} />
               <Route path="/discussions" component={Discussions} />
               <Route path="/Creatediscussion" component={CreateDiscussion} />
+              <Route path="/genres" component={Genres} />
             </Switch>
           </div>
         </UserContext.Provider>
