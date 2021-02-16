@@ -72,9 +72,7 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
     } //end try,catch
 }); // end router.get("/mySharedBooks" //This route grabs the list of books the currently logged in user has shared 
 
-
-//broken ..... code below is notes for issue
-router.get("/shareBook", async (req, res) => {
+router.delete("/deleteSharedBook", auth, async(req, res) =>{ //when /deleteSharedBook is requested this will be run
     try{
         const token = req.header("x-auth-token"); //grab token
         if(!token) return res.json(false); //if no token, don't accept
@@ -82,48 +80,14 @@ router.get("/shareBook", async (req, res) => {
         if(!verified) return res.json(false); //if not a real token, don't accept
         const user = await User.findById(verified.id);
         if(!user) return res.json(false); //if token doesn't match a user, don't accept
-        data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        //const editShareBook = await SharedBook.find({ bookID: req.body.book_id, sharerID: data.id}).exec();
-       // editShareBook.receiverID = req.body.receiver_id;
-
-        const query = { bookID: req.body.book_id, sharerID: data.id };
-        SharedBook.findOneAndUpdate(query, { receiverID:  req.body.receiver_id}, null, null)
-        //SharedBook.findOneAndUpdate(query, { $set: { receiverID: req.body.receiver_id }}, null, null)
-        res.json("Got here") //sends back update confirm
+        const deletedSharedBook = await SharedBooks.findByIdAndDelete(req.body.fid); //passing db id, in body, of shared book, finding and deleting it
+        res.json(deletedSharedBook); //send back deleted obj record
     }catch(err){
-        
         res.status(500).json({error: err.message});
     }
-});  // end router.route("/shareBook").post //This route updates a sharedBook record
+}); // end router.delete("/deleteSharedBook" //This route will delete a shared book record 
+//Pass the unique databaseID of the shared book record in req.body.fid to delete it
+
 
 module.exports = router;
-
-//^^
-//make "share book" (updates reciever in record) route (take shareID(_id) and recieverID and add new rec)
-// shareID, recieverID in post body
-//update record where shareID = shareID in body. Update the recieverID where recieverID = recieverID in body.
-    //    const sharer = await SharedBook.find({sharerID:did}).exec(); //grabs specific sharedBook record 
-     //   SharedBook.findByIdAndUpdate(
-        //    { _id: sharer }, // value of the _id field
-         //   { receiverID: res.body }, //update
-         //   function(err, result) {
-        //      if (err) {
-          //      res.send(err);
-         //     } else {
-        //        res.send(result);
-         //     }
-        //    }
-        //  ); 
-
-
-        // SharedBook.findByIdAndUpdate(sharerID, { receiverID: req.body.did }, //find the logged in users shareBook record and updates the reciever.
-          //  function (err, docs) { 
-          //  if (err){ 
-         //   console.log(err) 
-         //   } 
-         //   else{ 
-         //   console.log("Updated Reciever: ", docs); 
-         //   } 
-         //   }); 
-
 

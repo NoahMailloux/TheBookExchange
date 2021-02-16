@@ -8,6 +8,8 @@ const Comment = require("../models/commentsmodel")
 const { db } = require("../models/userModel");
 const DiscussionFollows = require("../models/discussionFollowsModel"); //require discussionFollowsModel
 
+
+
 /*Ignore this */
 //Find a user
 router.get("/", auth, async (req, res) =>{
@@ -69,26 +71,19 @@ router.post("/listdiscussions", async (req, res) =>{
 
   try{
     const token = req.header("x-auth-token");
-    if(!token) return res.json(false);
+    if(!token) return res.json("no token");
   
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    if(!verified) return res.json(false);
+    if(!verified) return res.json("unverified");
   
     const user = await User.findById(verified.id);
-    if(!user) return res.json(false);
-
+    if(!user) return res.json("no user");
 
 //print all discussion records
-  const collection = db.collection('discussions');
+const  discussions = await Discussion.find({}).exec();
+res.json(JSON.stringify(discussions))
 
-  collection.find({}).toArray(function(err, discussions){
-
-    console.log(JSON.stringify(discussions, null, 2));
-  });
-
-
-
-    return res.json(true);
+  console.log(JSON.stringify(discussions, null, 2));
    }catch(err){ 
        res.status(500).json({error: err.message});
    }
