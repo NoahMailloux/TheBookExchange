@@ -395,3 +395,42 @@ float:right;
     background-color: #E1E1E1;
     width: 100%;
 }
+
+/*myBooks*/
+
+.myBook1 {
+    background-image: url(./images/ExampleBook1.png);
+    background-size: cover;
+    width: 178px;
+    height: 284px;
+    clear: both;
+  }
+.bookContainer{
+    clear: both;
+}
+.tRow{
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 35px;
+    line-height: 45px;
+    background-color: #3394CC;
+    border-radius: 36px;
+    width: 240px;
+    height: 70px;
+    font-weight: bold;
+}   
+
+.bookDetailsBtn{
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 35px;
+    line-height: 45px;
+    background-color: #3394CC;
+    border-radius: 36px;
+    width: 120px;
+    height: 70px;
+    font-weight: bold;
+}
+.myBooksTitle{
+    text-align: center;
+}
