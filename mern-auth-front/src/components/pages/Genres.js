@@ -1,20 +1,39 @@
-import React, {useEffect, useContext}  from 'react';
-import {useHistory} from "react-router-dom";
+import React, { useEffect, useContext, useState, createContext } from "react";
+import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import AuthOptions from '../auth/AuthOptions';
-import LoggedInHeader from '../layout/LoggedInHeader';
+import AuthOptions from "../auth/AuthOptions";
+import LoggedInHeader from "../layout/LoggedInHeader";
+import Axios from "axios";
 
 export default function Genres() {
-    const {userData} = useContext(UserContext);
-    const history = useHistory();
-    const register = () => history.push("/register")
+  const [discussions, setDiscussions] = useState({});
+  const userData = useContext(UserContext);
+  const history = useHistory();
 
+  useEffect(() => {
+    if (userData.token) {
+      console.log(userData.token);
+      const headers = {
+        headers: {
+          "x-auth-token": userData.token,
+          "Content-Type": "text/json",
+        },
+      };
+      Axios.post(
+        "http://localhost:5001/discussion/listdiscussions", null,
+        headers
+      ).then((data) => {
+        setDiscussions(data);
+      });
+    }
+  }, [userData]);
 
-    return(
+  if (!userData) return null;
+
+  return (
     <div>
-        <LoggedInHeader />
-        <h1>Genres</h1>
+      <LoggedInHeader />
+      <h1>Genres{JSON.stringify(userData) + JSON.stringify(discussions)}</h1>
     </div>
-    );
-
+  );
 }

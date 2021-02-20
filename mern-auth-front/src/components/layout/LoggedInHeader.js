@@ -15,7 +15,7 @@ import {
 } from "react-bootstrap";
 import "./Dashboard.css";
 export default function LoggedInHeader() {
-    const {userData, setUserData} = useContext(UserContext);
+    const setUserData = useContext(UserContext);
 
     const history = useHistory(); //grabs history of url bar so we can change url
     const discussions = () => history.push("/discussions");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Axios from "axios";
 import Home from "./components/pages/Home";
@@ -24,21 +24,23 @@ export default function App() {
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
-      }
+      } else {
+        const tokenRes = await Axios.post(
+          "http://localhost:5001/users/tokenIsValid",
+          null,
+          { headers: { "x-auth-token": token } }
+        );
 
-      const tokenRes = await Axios.post(
-        "http://localhost:5001/users/tokenIsValid",
-        null,
-        { headers: { "x-auth-token": token } }
-      );
-      if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:5001/users/", {
-          headers: { "x-auth-token": token },
-        });
-        setUserData({
-          token,
-          user: userRes.data,
-        });
+        if (tokenRes.data) {
+          const userRes = await Axios.get("http://localhost:5001/users/", {
+            headers: { "x-auth-token": token },
+          });
+          setUserData({
+            token: token,
+            user: userRes.data,
+          });
+
+        }
       }
     };
     checkedLoggedIn();
@@ -47,7 +49,7 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <UserContext.Provider value={{ userData, setUserData }}>
+        <UserContext.Provider value={ userData }>
           <div className="page-container">
             <Switch>
               <Route exact path="/" component={Home} />
