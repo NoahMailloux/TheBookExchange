@@ -6,9 +6,10 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
 import HomeLoggedIn from "./components/pages/HomeLoggedIn";
-import Discussions from "./components/pages/Discussions";
-import CreateDiscussion from "./components/pages/CreateDiscussion";
-import Genres from "./components/pages/Genres";
+import Discussions from "./components/pages/Discussions"
+import CreateDiscussion from "./components/pages/CreateDiscussion"
+import Genres from "./components/pages/Genres"
+import MyBooks from "./components/pages/MyBooks"
 import "./style.css";
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
               <Route path="/discussions" component={Discussions} />
               <Route path="/Creatediscussion" component={CreateDiscussion} />
               <Route path="/genres" component={Genres} />
+              <Route path="/myBooks" component={MyBooks} />
             </Switch>
           </div>
         </UserContext.Provider>
