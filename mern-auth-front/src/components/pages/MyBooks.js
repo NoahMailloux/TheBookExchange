@@ -15,7 +15,7 @@ export default function MyBooks() {
     const register = () => history.push("/register")
     const [books, setBooks] = useState({});
 
-    useEffect(() => {
+  /* useEffect(() => {
         if (userData.userData.token) {
           console.log(userData.userData.token);
           const headers = {
@@ -31,11 +31,11 @@ export default function MyBooks() {
             setBooks(data);
           });
         }
-      }, [userData]);
+      }, [userData]); */
 
+    const numbers = [];
+    for(var i=0;i<6;i++){numbers.push(i);}
 
-
-    const numbers = [1,2,3,4,5,6];
     const items = []
     for (const number of numbers) {
         items.push(
@@ -77,7 +77,6 @@ export default function MyBooks() {
             <div className="myBooksclear">
                 <table>here</table>
             </div>
-
         </div>
     );
 

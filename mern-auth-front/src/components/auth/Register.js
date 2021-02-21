@@ -11,6 +11,9 @@ export default function Register() {
     const [passwordCheck, setPasswordCheck] = useState();
     const [displayName, setDisplayName] = useState();
     const [address, setAddress] = useState();
+    const [postCode, setPostCode] = useState(); 
+    const [state, setUSState] = useState(); 
+    const [city, setCity] = useState(); 
     const [error, setError] = useState();
 
     const {setUserData} = useContext(UserContext);
@@ -19,7 +22,7 @@ export default function Register() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const newUser = {email, password, passwordCheck, displayName, address};
+            const newUser = {email, password, passwordCheck, displayName, address, postCode, state, city}; //updating, added  postCode, state, city
             await Axios.post(
                 "http://localhost:5001/users/register",
                 newUser
@@ -81,6 +84,24 @@ export default function Register() {
                         id="register-address" 
                         type ="text"
                         onChange={(e) => setAddress(e.target.value)}
+                        />
+                        <input 
+                        placeholder="Post Code"
+                        id="register-postCode" 
+                        type ="text"
+                        onChange={(e) => setPostCode(e.target.value)} 
+                        />
+                        <input 
+                        placeholder="State"
+                        id="register-USState" 
+                        type ="text"
+                        onChange={(e) => setUSState(e.target.value)} 
+                        />
+                        <input 
+                        placeholder="City"
+                        id="register-city" 
+                        type ="text"
+                        onChange={(e) => setCity(e.target.value)} 
                         />
 
                         <input type ="submit" value="Register"/>

@@ -109,11 +109,11 @@ body{
 
     /* Center vertically */
     position: absolute;
-    top: 20%;
+    top: 10%;
     left:35%;
     background-color: #FFFFFF;
     width: 600px;
-    height: 650px;
+    height: 900px;
     text-align: center;
 }
 .loginT{

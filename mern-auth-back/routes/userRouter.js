@@ -6,11 +6,11 @@ const User = require("../models/userModel");
 
 router.post("/register", async (req, res) => {
     try{
-    let { email, password, passwordCheck, displayName, address} = req.body;
+    let { email, password, passwordCheck, displayName, address, postCode, state, city} = req.body;
 
     //validate
 
-    if(!email || !password || !passwordCheck || !address)
+    if(!email || !password || !passwordCheck || !address || !postCode || !state || !city)
         return res.status(400).json({msg: "Not all fields have been entered."});
     if (password.length < 5)
         return res
@@ -38,7 +38,10 @@ router.post("/register", async (req, res) => {
             password: passwordHash,
             displayName,
             subscribedGenre,
-            address
+            address,
+            postCode,
+            state,
+            city
         });
         const savedUser = await newUser.save();
         res.json(savedUser);
