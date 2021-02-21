@@ -12,24 +12,24 @@ export default function MyBooks() {
     const { userData } = useContext(UserContext);
     const history = useHistory();
     const register = () => history.push("/register")
-    const numbers = ['one', 'two', 'three', 'four'];
+    const numbers = [1,2,3,4,5,6];
     const items = []
     for (const number of numbers) {
         items.push(
-
             <>
+            <td>
                 {<div className="myBook1"></div>}
-                  <Popup trigger={<button> Trigger</button>} position="right center">
+                <Popup trigger={<button  className="bookDetailsBtn">Details</button>} position="right center">
                     <div>Popup content here !!</div> 
                 </Popup>
+            </td>
             </>
-
         )
     }
     /*Adjust z index for popup */
     /*
         const elements = [{bookImg:"myBook1",bookDetails:"Details"},
-            {bookImg:"myBook1",bookDetails:"Details2"},
+            {bookImg:"myBook1",bookDetails:"Details2"}, 
             {bookImg:"myBook1",bookDetails:"Details3"},];
             {elements.map((value, index) => {
                 var result = value.keys(obj).map((key) => [index(key), obj[key]]);
@@ -48,13 +48,12 @@ export default function MyBooks() {
         <div>
             <LoggedInHeader />
             <h1>My Books</h1>
-            <table>
-                <tr>
-                    <td>
-                        {items}
-                    </td>
-                </tr>
-            </table>
+            <div className="myBooksFloatLeft">
+                <table>{items}</table>
+            </div>
+            <div className="myBooksclear">
+                <table>here</table>
+            </div>
 
         </div>
     );

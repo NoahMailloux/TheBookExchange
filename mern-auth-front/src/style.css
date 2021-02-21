@@ -401,9 +401,12 @@ float:right;
 .myBook1 {
     background-image: url(./images/ExampleBook1.png);
     background-size: cover;
+    border: 1px solid #8492A6;
     width: 178px;
     height: 284px;
     clear: both;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 .bookContainer{
     clear: both;
@@ -423,14 +426,24 @@ float:right;
 .bookDetailsBtn{
     color: #FFFFFF;
     font-family: Lato;
-    font-size: 35px;
-    line-height: 45px;
+    font-size: 26px;
+    line-height: 33px;
     background-color: #3394CC;
-    border-radius: 36px;
-    width: 120px;
-    height: 70px;
+    border-radius: 80px;
+    width: 184px;
+    height: 58px;
     font-weight: bold;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 .myBooksTitle{
     text-align: center;
 }
+.myBooksFloatLeft {
+    position:static;
+    float: left;
+  }
+.myBooksclear {
+    position:relative;
+    float: left;
+  }
