@@ -4,7 +4,7 @@ import UserContext from "../../context/UserContext";
 
 export default function AuthOptions() {
     const {userData, setUserData} = useContext(UserContext);
-
+    
     const history = useHistory(); //grabs history of url bar so we can change url
 
     const register = () => history.push("/register")//change url to register

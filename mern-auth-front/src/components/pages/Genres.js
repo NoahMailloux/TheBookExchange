@@ -11,11 +11,11 @@ export default function Genres() {
   const history = useHistory();
 
   useEffect(() => {
-    if (userData.token) {
-      console.log(userData.token);
+    if (userData.userData.token) {
+      console.log(userData.userData.token);
       const headers = {
         headers: {
-          "x-auth-token": userData.token,
+          "x-auth-token": userData.userData.token,
           "Content-Type": "text/json",
         },
       };
@@ -33,7 +33,7 @@ export default function Genres() {
   return (
     <div>
       <LoggedInHeader />
-      <h1>Genres{JSON.stringify(userData) + JSON.stringify(discussions)}</h1>
+      <h1>Genres{JSON.stringify(userData,userData) + JSON.stringify(discussions)}</h1>
     </div>
   );
 }
