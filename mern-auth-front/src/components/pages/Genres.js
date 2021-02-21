@@ -10,6 +10,16 @@ export default function Genres() {
   const [genres, setGenres] = useState({});
   const userData = useContext(UserContext);
   const history = useHistory();
+  const [genre, setGenre] = useState();
+
+  //form submit
+  const submit = async (e) => {
+    e.preventDefault();
+    if(genre && genre != "Select a Genre from the list..." ) {
+      console.log(genre)
+    }
+    else {console.log("Please select a Genre")}
+  }
 
   useEffect(() => {
     if (userData.userData.token) {
@@ -20,7 +30,7 @@ export default function Genres() {
           "Content-Type": "text/json",
         },
       }).then((data) => {
-        let temp = [];
+        let temp = ["Select a Genre from the list..."];
         let parsedData = JSON.parse(data.data);
         console.log(parsedData);
         for (const index in parsedData) {
@@ -54,8 +64,8 @@ export default function Genres() {
           and hopefully have a stimulating conversation with people interested
           in this book!
         </p>
-        <form>
-          <select name="genres" className="genres-dd">
+        <form className="genreOfMonthForm" onSubmit={submit}>
+          <select placeholder="select a Genre" name="genres" className="genres-dd" onChange={(e) => setGenre(e.target.value)}>
             {
               (console.log(g),
               g.map((x) => (
@@ -65,7 +75,7 @@ export default function Genres() {
               )))
             }
           </select>
-          <input type="submit"></input>
+          <input type="submit" value="Select Genre"/>
         </form>
       </div>
     </>
