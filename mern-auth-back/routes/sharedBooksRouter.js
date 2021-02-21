@@ -65,7 +65,7 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
         const user = await User.findById(verified.id);
         if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user
+        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user by sharerID
         res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
     }catch(err){
         res.status(500).json({error: err.message});

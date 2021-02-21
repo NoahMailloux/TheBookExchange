@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import AuthOptions from '../auth/AuthOptions';
 import LoggedInHeader from '../layout/LoggedInHeader';
 import "./myBooks.css";
 import Popup from 'reactjs-popup';
+import Axios from "axios";
 
 
 
@@ -12,6 +13,28 @@ export default function MyBooks() {
     const { userData } = useContext(UserContext);
     const history = useHistory();
     const register = () => history.push("/register")
+    const [books, setBooks] = useState({});
+
+    useEffect(() => {
+        if (userData.userData.token) {
+          console.log(userData.userData.token);
+          const headers = {
+            headers: {
+              "x-auth-token": userData.userData.token,
+              "Content-Type": "text/json",
+            },
+          };
+          Axios.post(
+            "http://localhost:5001/discussion/listdiscussions", null,
+            headers
+          ).then((data) => {
+            setBooks(data);
+          });
+        }
+      }, [userData]);
+
+
+
     const numbers = [1,2,3,4,5,6];
     const items = []
     for (const number of numbers) {
