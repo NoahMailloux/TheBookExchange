@@ -52,12 +52,13 @@ router.get("/getGenre", async (req, res) => { //when /getGenre is requested this
 
 router.get("/getAllGenres", async (req, res) => { //when /getAllGenre is requested this will be run
     try{
+        console.log(req)
         const token = req.header("x-auth-token"); //grab token
-        if(!token) return res.json(false); //if no token, don't accept
+        if(!token) return res.json("no token"); //if no token, don't accept
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        if(!verified) return res.json(false); //if not a real token, don't accept
+        if(!verified) return res.json("not a valid token"); //if not a real token, don't accept
         const user = await User.findById(verified.id);
-        if(!user) return res.json(false); //if token doesn't match a user, don't accept
+        if(!user) return res.json("not a valud user"); //if token doesn't match a user, don't accept
         const genres = await Genre.find({}).exec(); //grabs all genre records
         res.json(JSON.stringify(genres)) //sends back all genre records 
     }catch(err){
