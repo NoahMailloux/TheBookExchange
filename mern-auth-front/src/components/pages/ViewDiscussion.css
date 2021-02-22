@@ -1,0 +1,89 @@
+
+  #bodycolor {
+    background-color: #8c9697 ;
+  }
+
+h1 {
+    margin-left: 17%;
+     position: absolute;
+     top: 8%;
+     margin-top: auto;
+     color: red;
+    }
+
+table {
+    margin-left: 17%; 
+    position: absolute; 
+    
+    top: 15%; 
+}
+.line{
+    width: 112px;
+    height: 47px;
+    border-bottom: 3px solid black;
+    position: absolute;
+    }
+
+th {
+    margin-left: 15%; 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: x-large;
+    /* NEEDS SPACING TO MAKE WHOLE LINE */
+    padding: 3%;
+    color: rgb(0, 0, 0);
+}
+
+td {
+    text-align: center;
+    font-size: large;
+}
+table.secondaryline{ 
+    margin-top: 4%; 
+    position: absolute; }
+
+  table.mainline{ 
+    border-collapse: collapse;
+        margin-left: 17%; 
+        position: absolute; 
+        
+     }
+
+label{
+    color: red;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#search {
+    background-color: #0d75de;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 30%;
+  }
+
+  button.sub {border-radius: 30%;}
+
+div.searchbar {
+    margin-left: 60%;
+     position: absolute;
+     top: 8%;
+     margin-top: auto;
+     color: red;
+    }
+
+    img.thumbnail{
+        
+    margin-left: 75%;
+    position: absolute;
+    top: 12%;
+    margin-top: auto;
+    }
+
+#discussions tr:nth-child(even){background-color: #f2f2f2;}
+#discussions tr:hover {background-color: #ddd;}
