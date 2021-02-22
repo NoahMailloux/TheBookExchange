@@ -7,7 +7,9 @@ import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
 import HomeLoggedIn from "./components/pages/HomeLoggedIn";
 import Discussions from "./components/pages/Discussions";
-import CreateDiscussion from "./components/pages/CreateDiscussion";
+import creatediscussion from "./components/pages/CreateDiscussion";
+import createcomment from "./components/pages/CreateComment"
+import viewdiscussion from "./components/pages/ViewDiscussion"
 import Genres from "./components/pages/Genres";
 import MyBooks from "./components/pages/MyBooks";
 import "./style.css";
@@ -56,9 +58,11 @@ export default function App() {
               <Route path="/register" component={Register} />
               <Route path="/homeloggedin" component={HomeLoggedIn} />
               <Route path="/discussions" component={Discussions} />
-              <Route path="/Creatediscussion" component={CreateDiscussion} />
+              <Route path="/creatediscussion" component={creatediscussion} />
               <Route path="/genres" component={Genres} />
               <Route path="/myBooks" component={MyBooks} />
+              <Route path="/createcomment" component={createcomment} />
+              <Route path="/viewdiscussion" component={viewdiscussion} />
             </Switch>
           </div>
         </UserContext.Provider>

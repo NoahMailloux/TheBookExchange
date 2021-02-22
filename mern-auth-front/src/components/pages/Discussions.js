@@ -74,18 +74,28 @@ export default function Discussions() {
         const elements = ['one', 'two', 'three', 'four'];
         const elements2 = ['5', '6', '7', '8'];
     return(
-
+      <body id="bodycolor">
     <div>
     <LoggedInHeader />
 
     <h1>Discussions</h1>
-    <table id="discussions">
+    </div>
+    <div class="searchbar" id="searchbar">
+      <label>Search...</label>
+      <input type="text" placeholder="Search"></input>
+      <button id="search" class="search">Search</button>
+    </div>
+    <div>
+
+    <table id="mainline" class="mainline line">
         <tr>
                 <th>Title</th>
                 <th>Creator</th>
                 <th>Book</th>
                 <th>Genre</th>
             </tr>
+      </table>
+      <table id="secondaryline" class="secondaryline">
     <td>
       {elements.map((value, index) => {
         return <tr key={index}>{elements[0]}</tr>
@@ -109,6 +119,7 @@ export default function Discussions() {
     </table>
 
     </div>
+    </body>
     );
 }
 
