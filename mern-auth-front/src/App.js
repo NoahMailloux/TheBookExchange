@@ -10,6 +10,7 @@ import Discussions from "./components/pages/Discussions";
 import creatediscussion from "./components/pages/CreateDiscussion";
 import createcomment from "./components/pages/CreateComment"
 import viewdiscussion from "./components/pages/ViewDiscussion"
+import settings from "./components/pages/Settings"
 import Genres from "./components/pages/Genres";
 import MyBooks from "./components/pages/MyBooks";
 import "./style.css";
@@ -63,6 +64,7 @@ export default function App() {
               <Route path="/myBooks" component={MyBooks} />
               <Route path="/createcomment" component={createcomment} />
               <Route path="/viewdiscussion" component={viewdiscussion} />
+              <Route path="/settings" component={settings} />
             </Switch>
           </div>
         </UserContext.Provider>

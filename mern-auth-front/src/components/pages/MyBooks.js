@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import AuthOptions from '../auth/AuthOptions';
 import LoggedInHeader from '../layout/LoggedInHeader';
-import "./myBooks.css";
+import PageBottom from "../layout/Footer";
 import Popup from 'reactjs-popup';
 import Axios from "axios";
 
@@ -14,7 +14,6 @@ export default function MyBooks() {
     const history = useHistory();
     const register = () => history.push("/register")
     const [books, setBooks] = useState({});
-
   /* useEffect(() => {
         if (userData.userData.token) {
           console.log(userData.userData.token);
@@ -43,9 +42,19 @@ export default function MyBooks() {
             <td>
                 {<div className="myBook1"></div>}
                 <Popup trigger={<button  className="bookDetailsBtn">Details</button>} position="right center">
-                    <div>Popup content here !!</div> 
+                    <div className="popupContainer">
+                    <button className="popupClose">[X]</button>
+                        <div className="popupInnerContainer">_________________</div>
+                        <div className="popupInnerContainer">Book Title</div>
+                        <div className="popupInnerContainer">____________</div>
+                        <div className="popupInnerContainer">Release Date:</div>
+                        <div className="popupInnerContainer">Genre:</div>
+                        <div className="popupInnerContainer">Author:</div>
+                        <div className="popupInnerContainer">Buy Date:</div>
+                      </div> 
                 </Popup>
             </td>
+
             </>
         )
     }
@@ -71,12 +80,15 @@ export default function MyBooks() {
         <div>
             <LoggedInHeader />
             <h1>My Books</h1>
-            <div className="myBooksFloatLeft">
-                <table>{items}</table>
+            <div className="myBooksOutterContainer">
+              <div className="myBooksInnerContainer">
+                  <table>{items}</table>
+              </div>
+              <div className="myBooksInnerContainer2">
+              <table>{items}</table>
+              </div>
             </div>
-            <div className="myBooksclear">
-                <table>here</table>
-            </div>
+            <PageBottom/>
         </div>
     );
 

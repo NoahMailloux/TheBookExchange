@@ -303,7 +303,6 @@ float:right;
     font-weight: bold;
 
   }
-
 .t1Btn{
     color: #FFFFFF;
     font-family: Lato;
@@ -439,11 +438,86 @@ float:right;
 .myBooksTitle{
     text-align: center;
 }
-.myBooksFloatLeft {
-    position:static;
-    float: left;
+
+.myBooksOutterContainer {
+    position: absolute;
+    top: 15%;
+    left:15%;
+    text-align: center;
+    margin-left: 1%;
   }
-.myBooksclear {
-    position:relative;
-    float: left;
+.myBooksInnerContainer {
+    position: absolute;
+    bottom: -10px;
+    width:100px;
   }
+.myBooksInnerContainer2 {
+position: absolute;
+bottom: -400px;
+width:100px;
+}
+
+/*Settings*/
+
+.settingsContainer{
+position: absolute;
+top: 15%;
+left:15%;
+text-align: center;
+margin-left: 1%;
+}
+.settingsAddressContainer{
+    position: absolute;
+    width:400px;
+    top: 10px;
+    border: 1px solid #8492A6;
+
+}
+
+.settingsPaymentContainer{
+    position: absolute;
+    top: 10px;
+    left:450px;
+    border: 1px solid #8492A6;
+    width:400px;
+}
+.settingsEditProfileContainer{
+    position: absolute;
+    top: 10px;
+    left:900px;
+    border: 1px solid #8492A6;
+    width:400px;
+}
+.settingsBtn{
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 20px;
+    line-height: 45px;
+    background-color: #3394CC;
+    border-radius: 36px;
+    width: 160px;
+    height: 50px;
+    font-weight: bold;  
+    margin-bottom: 1%;
+}
+
+/*popups */
+.popupContainer{
+    background-color: #3394CC;
+    width:600px;
+    height:350px;
+    border-radius: 36px;
+}
+.popupInnerContainer{
+    color: #FFFFFF;
+    text-align: center;
+    font-size:30px;
+}
+
+.popupClose{
+    color:#47525E;
+    position: absolute;
+    font-size:45px;
+    margin-left: 515px;
+    margin-top: 20px;
+}

@@ -20,6 +20,7 @@ export default function LoggedInHeader() {
   const discussions = () => history.push("/discussions");
   const genres = () => history.push("/Genres");
   const myBooks = () => history.push("/myBooks");
+  const settings = () => history.push("/settings");
   const logout = () => {
     setUserData({
       token: undefined,
@@ -45,7 +46,7 @@ export default function LoggedInHeader() {
             <Nav className="mr-auto"></Nav>
             <Nav>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              <Nav.Link onClick={settings}>
                 Settings
               </Nav.Link>
             </Nav>

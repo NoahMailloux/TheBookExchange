@@ -33,11 +33,12 @@
 
 /*footer*/
 .footer{
-    position:fixed;
-    background-color: #47525E;
+    position:absolute;
+    background-color: #343a40;
     width: 100%;
     height: 100%;
     max-height: 100px;
+    margin-top: 450px;
 }
 .footerInner{
     float:left;
