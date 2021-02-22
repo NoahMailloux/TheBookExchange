@@ -81,13 +81,13 @@ export default function CreateComment() {
 <div class="container">
 <form action="google.com">
 <h3 for="fname">Title</h3>
-    <input type="text" id="title" name="title" placeholder="Title"></input>
+    <label type="text" id="title" name="title" placeholder="Title">"booktitle"</label>
 
     <h3 for="lname">Book</h3>
-    <input type="text" id="Book" name="Book" placeholder="Book"></input>
+    <label type="text" id="Book" name="Book" placeholder="Book">"Bookname"</label>
 
     <h3 for="lname">Genre</h3>
-    <input type="text" id="Genre" name="Genre" placeholder="Genre"></input>
+    <label type="text" id="Genre" name="Genre" placeholder="Genre">"Genre"</label>
 
     <h3 for="lname">Comment</h3>
     <br></br>
