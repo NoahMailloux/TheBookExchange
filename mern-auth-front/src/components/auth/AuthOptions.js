@@ -19,11 +19,11 @@ export default function AuthOptions() {
 
     return (
         <nav className="auth-options">
-            {userData.user ? (
-                <button className="tLinks" onClick={logout}>Log out</button>
-            ) : (
+            {userData.user ? ( //if there is a user in userData
+                <button className="tLinks" onClick={logout}>Log out</button>//render this button
+            ) : (//else
              <>   
-            <button className="tLinks" onClick={register}> | Register</button>
+            <button className="tLinks" onClick={register/*render these elements if there isnt a user*/}> | Register</button>
             <button className="tLinks" onClick={login}>Log in </button>
             </>
         )}
