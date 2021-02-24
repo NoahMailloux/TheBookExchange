@@ -31,6 +31,7 @@ input[type="submit"]{
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
     margin: 1 em 0;
+    color: blue;
 }
 
 /* general */

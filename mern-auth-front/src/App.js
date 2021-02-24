@@ -13,6 +13,7 @@ import viewdiscussion from "./components/pages/ViewDiscussion"
 import settings from "./components/pages/Settings"
 import Genres from "./components/pages/Genres";
 import MyBooks from "./components/pages/MyBooks";
+import Overview from "./components/pages/Overview";
 import "./style.css";
 
 export default function App() {
@@ -65,6 +66,7 @@ export default function App() {
               <Route path="/createcomment" component={createcomment} />
               <Route path="/viewdiscussion" component={viewdiscussion} />
               <Route path="/settings" component={settings} />
+              <Route path="/overview" component={Overview} />
             </Switch>
           </div>
         </UserContext.Provider>

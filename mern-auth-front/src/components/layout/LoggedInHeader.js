@@ -21,6 +21,7 @@ export default function LoggedInHeader() {
   const genres = () => history.push("/Genres");
   const myBooks = () => history.push("/myBooks");
   const settings = () => history.push("/settings");
+  const overview = () => history.push("/overview");
   const logout = () => {
     setUserData({
       token: undefined,
@@ -53,6 +54,9 @@ export default function LoggedInHeader() {
           </Navbar.Collapse>
         </Navbar>
         <div className="Menu">
+        <button onClick={overview} className="navbtn">
+            Overview
+          </button>
           <button onClick={discussions} className="navbtn">
             Discussions
           </button>
