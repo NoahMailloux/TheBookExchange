@@ -41,7 +41,7 @@ export default function LoggedInHeader() {
           bg="dark"
           variant="dark"
         >
-          <Navbar.Brand href="#home">The Book Exchange Project</Navbar.Brand>
+          <Navbar.Brand onClick={overview} href="#home">The Book Exchange Project</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto"></Nav>

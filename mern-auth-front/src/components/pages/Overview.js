@@ -170,10 +170,12 @@ export default function Overview() {
       <div className="myBooksOutterContainer">
         <div className="myBooksInnerContainer">
           <table>{items}</table>
-        </div>
-      </div>
-      <PageBottom />
+         
+        </div>  
+      </div>  
+     
     </div>
+    
   );
-
+/* <PageBottom /> */
 }

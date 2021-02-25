@@ -350,31 +350,33 @@ float:right;
     background-size: cover;
     width: 178px;
     height: 284px;
-    float: left;
+    position: absolute;
+    margin-left: 3.5%;
   }
   .homeBook2 {
     background-image: url(./images/ExampleBook2.png);
     background-size: cover;
     width: 178px;
     height: 284px;
-    float: left;
-    margin-left: 10px
+    position: absolute;
+    margin-left: 13.5%
+    
   }
   .homeBook3 {
     background-image: url(./images/ExampleBook3.png);
     background-size: cover;
     width: 178px;
     height: 284px;    
-    float: left;
-    margin-left: 10px
+    position: absolute;
+    margin-left: 23.5%
   }
   .homeBook4 {
     background-image: url(./images/ExampleBook4.png);
     background-size: cover;
     width: 178px;
     height: 284px;
-    float: left;
-    margin-left: 10px
+    position: absolute;
+    margin-left: 33.5%
   }
   .homeLeftArrow{
     background-image: url(./images/LeftArrow.png);
@@ -435,6 +437,8 @@ float:right;
     font-weight: bold;
     margin-right: 20px;
     margin-left: 20px;
+    margin-top: 1px;
+    margin-bottom: 20px;
 }
 .myBooksTitle{
     text-align: center;

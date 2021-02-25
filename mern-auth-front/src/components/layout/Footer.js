@@ -13,11 +13,11 @@ export default function Footer() {
         <>
         <footer>
 
-            <div className="footer">
+            <footer className="footer">
                 <div className="footerInner">
                 <button className="tLinks" onClick={mainScreen}>The Book Exchange 2020</button>
                 </div>
-            </div>
+            </footer>
 
         </footer>
         </>
