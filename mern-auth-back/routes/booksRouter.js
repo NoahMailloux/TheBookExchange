@@ -8,7 +8,7 @@ const SharedBooks = require("../models/sharedBooksModel"); //require sharedBooks
 
 router.post("/addBook", async (req, res) => { //when /addBook is requested this will be run
     try{
-        const {bookID, name, genreID, rating, price, author, synopsis} = req.body; //grab info from body
+        const {bookID, name, genreID, rating, price, author, synopsis, bookUrl} = req.body; //grab info from body
         const token = req.header("x-auth-token"); //grab token
         if(!token) return res.json(false); //if no token, don't accept
         const verified = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +22,8 @@ router.post("/addBook", async (req, res) => { //when /addBook is requested this 
             rating,
             price,
             author,
-            synopsis
+            synopsis,
+            bookUrl
         }); //create a new Book record
         const BookOut = await newBook.save(); // save the record
         res.json(BookOut); //send back the new book record

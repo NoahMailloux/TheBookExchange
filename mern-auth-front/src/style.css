@@ -398,8 +398,8 @@ float:right;
 
 /*myBooks*/
 
-.myBook1 {
-    background-image: url(./images/ExampleBook1.png);
+.myBook {
+   /* background-image: url(./images/ExampleBook1.png); */
     background-size: cover;
     border: 1px solid #8492A6;
     width: 178px;
