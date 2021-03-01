@@ -71,17 +71,13 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
         for (const index in myBooks){
             const books = await Book.find({bookID:myBooks[index].bookID}).exec(); //grab the book by the bookID we got from previous call
             bookIDsArray.push(books); //add to array
-          //  console.log(books)
-            
-            /*console.log(bookIDsArray)*/
         }
-    
-        res.json(JSON.stringify(bookIDsArray))
-        
+        res.json(typeOf(bookIDsArray))  
+        //res.json(JSON.stringify(bookIDsArray))   
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
-}); // end router.get("/mySharedBooks" //This route grabs the list of books the currently logged in user has shared 
+}); // end router.get("/mySharedBooks" //This route grabs the list of books that have been shared with the currently logged in user (by receiverID)
 
 router.delete("/deleteSharedBook", auth, async(req, res) =>{ //when /deleteSharedBook is requested this will be run
     try{

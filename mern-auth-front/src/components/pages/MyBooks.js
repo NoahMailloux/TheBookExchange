@@ -33,13 +33,13 @@ export default function MyBooks() {
           let bookAuthorsArray = [];//#2
           let bookRatingsArray = []; let bookPricesArray = []; let bookGenresArray = []; let bookImgsArray = [];
           let parsedData = JSON.parse(data);//this will convert the data back into an object since axios returns only a string
-          console.log(JSON.stringify(data));
+          console.log("got here");//JSON.stringify(parsedData)
          /* for (const index in parsedData) {//for each index in the array of objects
             bookNamesArray.push(parsedData[index].name);//access data in parsed data via the index
             bookAuthorsArray.push(parsedData[index].author);//#3
             bookRatingsArray.push(parsedData[index].rating); bookPricesArray.push(parsedData[index].price);
             bookGenresArray.push(parsedData[index].genreID); bookImgsArray.push(parsedData[index].bookUrl);
-            //console.log(bookNamesArray)
+            //console.log(bookNamesArray) 
           }
           //console.log(JSON.stringify(bookNamesArray));
           console.log(JSON.stringify(bookAuthorsArray));
@@ -51,24 +51,6 @@ export default function MyBooks() {
     }, [userData]);//everytime userData changes rerender
   
     if (!userData) return null;//if there is no user data, render null aka a blank page
-
-  /* useEffect(() => {
-        if (userData.userData.token) {
-          console.log(userData.userData.token);
-          const headers = {
-            headers: {
-              "x-auth-token": userData.userData.token,
-              "Content-Type": "text/json",
-            },
-          };
-          Axios.post(
-            "http://localhost:5001/discussion/listdiscussions", null,
-            headers
-          ).then((data) => {
-            setBooks(data);
-          });
-        }
-      }, [userData]); */
 
     const numbers = [];
     for(var i=0;i<6;i++){numbers.push(i);}

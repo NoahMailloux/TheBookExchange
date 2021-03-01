@@ -14,6 +14,9 @@ import settings from "./components/pages/Settings"
 import Genres from "./components/pages/Genres";
 import MyBooks from "./components/pages/MyBooks";
 import Overview from "./components/pages/Overview";
+import EditAddress from "./components/pages/EditAddress";
+import EditPaypal from "./components/pages/EditPaypal";
+import EditProfile from "./components/pages/EditProfile";
 import "./style.css";
 
 export default function App() {
@@ -67,6 +70,9 @@ export default function App() {
               <Route path="/viewdiscussion" component={viewdiscussion} />
               <Route path="/settings" component={settings} />
               <Route path="/overview" component={Overview} />
+              <Route path="/editAddress" component={EditAddress} />
+              <Route path="/editPaypal" component={EditPaypal} />
+              <Route path="/editProfile" component={EditProfile} />
             </Switch>
           </div>
         </UserContext.Provider>

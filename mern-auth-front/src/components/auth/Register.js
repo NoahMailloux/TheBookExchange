@@ -80,7 +80,7 @@ export default function Register() {
                         onChange={(e) => setDisplayName(e.target.value)}
                         />
                         <input 
-                        placeholder="Address"
+                        placeholder="Street"
                         id="register-address" 
                         type ="text"
                         onChange={(e) => setAddress(e.target.value)}
@@ -105,6 +105,8 @@ export default function Register() {
                         />
 
                         <input type ="submit" value="Register"/>
+                        <p className="registerTermsP">By signing up you agree to our</p>
+                        <p className="registerTermsP">Terms & Conditions</p>
                     </form>
                 </div> 
             </div>

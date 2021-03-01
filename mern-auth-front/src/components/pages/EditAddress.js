@@ -7,13 +7,15 @@ import LoggedInHeader from '../layout/LoggedInHeader';
 import Axios from "axios";
 
 
-export default function Settings() {
+export default function EditAddress() {
     const userData = useContext(UserContext);
     const [users, setUsers] = useState({});
     const history = useHistory();
     const editAddress = () => history.push("/editAddress")
     const editPaypal = () => history.push("/editPaypal")
     const editProfile = () => history.push("/editProfile")
+    const settings = () => history.push("/settings")
+
 
     useEffect(() => {//when component renders run this
         if (userData.userData.token) {
@@ -52,6 +54,8 @@ export default function Settings() {
         u = Object.values(users);//take all the user values and store into array u
       }
 
+      //add submit function
+
     return(
         <>
     <div>
@@ -64,7 +68,8 @@ export default function Settings() {
                     <p className="settingsP">City:{u[1]}</p>
                     <p className="settingsP">State:{u[2]}</p>
                     <p className="settingsP">Zip Code:{u[3]}</p>
-                    <button className="settingsBtn" onClick={editAddress}>Edit Address</button>
+                    <button className="settingsBtn2" onClick={settings}>Done</button>
+                    <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>
                 <div className="settingsPaymentContainer">
                     <h2 className="settingsH2">Payment</h2>
@@ -90,3 +95,35 @@ export default function Settings() {
     );
     
 }
+/*
+                    <div className="loginContainer">
+                        <form className="form2" onSubmit={submit}>
+                            <input 
+                            placeholder={u[0]}
+                            id="edit-street" 
+                            type ="string" 
+                            onChange={(e) => setStreet(e.target.value)}
+                            />
+                            <input 
+                            placeholder={u[1]}
+                            id="edit-city" 
+                            type ="string"
+                            onChange={(e) => setCity(e.target.value)}
+                            />
+                            <input 
+                            placeholder={u[2]}
+                            id="edit-state" 
+                            type ="string"
+                            onChange={(e) => setState(e.target.value)}
+                            />
+                            <input 
+                            placeholder={u[3]}
+                            id="edit-zipCode" 
+                            type ="string"
+                            onChange={(e) => setZipCode(e.target.value)}
+                            />
+                            <input type ="submit" value="Done"/>
+                        </form>
+                    </div>
+
+*/

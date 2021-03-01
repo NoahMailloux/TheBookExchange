@@ -32,7 +32,9 @@ router.post("/register", async (req, res) => {
 
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
-        const subscribedGenre = ""; //provide blank genre 
+        const paypalID = "paypalID";const fname = "First Name";
+        const lname = "Last Name";const phone = "Phone"; //provide blank filds
+        const subscribedGenre = "";
         const newUser = new User({
             email,
             password: passwordHash,
@@ -41,7 +43,11 @@ router.post("/register", async (req, res) => {
             address,
             postCode,
             state,
-            city
+            city,
+            paypalID,
+            fname,
+            lname,
+            phone
         });
         const savedUser = await newUser.save();
         res.json(savedUser);
@@ -83,6 +89,23 @@ router.post("/login", async (req, res) =>{
         res.status(500).json({error: err.message});
     }
 })
+
+router.get("/getUser", async (req, res) => { //when /getUser is requested this will be run
+    try{
+        const token = req.header("x-auth-token"); //grab token
+        if(!token) return res.json(false); //if no token, don't accept
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false); //if not a real token, don't accept
+        const user = await User.findById(verified.id);
+        data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode    
+        if(!user) return res.json(false); //if token doesn't match a user, don't accept
+        const users = await User.find({_id:data.id}).exec(); //grabs logged in users db object
+        res.json(JSON.stringify(users)) //sends back user object
+    }catch(err){
+        res.status(500).json({error: err.message});
+    } //end try,catch
+}); // end router.get("/getUser" //This route will find a user record
+
 
 router.delete("/delete", auth, async(req, res) =>{
     try{
