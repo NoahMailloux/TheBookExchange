@@ -65,8 +65,19 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
         const user = await User.findById(verified.id);
         if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const myBooks = await SharedBook.find({sharerID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user by sharerID
-        res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records
+        const myBooks = await SharedBook.find({receiverID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user by receiverID
+        //res.json(JSON.stringify(myBooks)) //sends back all sharedBooks records  
+        let bookIDsArray = [];//blank array    
+        for (const index in myBooks){
+            const books = await Book.find({bookID:myBooks[index].bookID}).exec(); //grab the book by the bookID we got from previous call
+            bookIDsArray.push(books); //add to array
+          //  console.log(books)
+            
+            /*console.log(bookIDsArray)*/
+        }
+    
+        res.json(JSON.stringify(bookIDsArray))
+        
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch

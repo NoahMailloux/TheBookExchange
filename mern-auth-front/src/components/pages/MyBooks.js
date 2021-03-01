@@ -10,10 +10,48 @@ import Axios from "axios";
 
 
 export default function MyBooks() {
-    const { userData } = useContext(UserContext);
     const history = useHistory();
     const register = () => history.push("/register")
     const [books, setBooks] = useState({});
+    const [bookNames, setBookNames] = useState({}); //use state to setBookNames and store books outside of useEffect
+    const [bookAuthors, setAuthors] = useState({}); //#1
+    const [bookRatings, setRatings] = useState({}); const [bookPrices, setPrices] = useState({}); const [bookGenres, setGenres] = useState({}); const [bookImgs, setImgs] = useState({});
+    const userData = useContext(UserContext);
+
+
+    useEffect(() => {//when component renders run this
+      if (userData.userData.token) {
+        //console.log(userData.userData.token);
+        Axios.get("http://localhost:5001/sharedBooks/mySharedBooks", {//this is an axios get requires route and headers, Axios post require route, null, headers in that order
+          headers: {
+            "x-auth-token": userData.userData.token,
+            "Content-Type": "text/json",
+          },
+        }).then((data) => {//after something is returned, store in data
+          console.log(data);
+          let bookNamesArray = [];//blank array
+          let bookAuthorsArray = [];//#2
+          let bookRatingsArray = []; let bookPricesArray = []; let bookGenresArray = []; let bookImgsArray = [];
+          let parsedData = JSON.parse(data);//this will convert the data back into an object since axios returns only a string
+          console.log(JSON.stringify(data));
+         /* for (const index in parsedData) {//for each index in the array of objects
+            bookNamesArray.push(parsedData[index].name);//access data in parsed data via the index
+            bookAuthorsArray.push(parsedData[index].author);//#3
+            bookRatingsArray.push(parsedData[index].rating); bookPricesArray.push(parsedData[index].price);
+            bookGenresArray.push(parsedData[index].genreID); bookImgsArray.push(parsedData[index].bookUrl);
+            //console.log(bookNamesArray)
+          }
+          //console.log(JSON.stringify(bookNamesArray));
+          console.log(JSON.stringify(bookAuthorsArray));
+          setBookNames(bookNamesArray);//use state to set books
+          setAuthors(bookAuthorsArray);//#4
+          setRatings(bookRatingsArray); setPrices(bookPricesArray); setGenres(bookGenresArray); setImgs(bookImgsArray); */
+        });
+      }
+    }, [userData]);//everytime userData changes rerender
+  
+    if (!userData) return null;//if there is no user data, render null aka a blank page
+
   /* useEffect(() => {
         if (userData.userData.token) {
           console.log(userData.userData.token);
