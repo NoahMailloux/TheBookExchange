@@ -28,7 +28,10 @@ export default function MyBooks() {
             "Content-Type": "text/json",
           },
         }).then((data) => {//after something is returned, store in data
-          console.log(data);
+          console.log(data.data.bookIDsArray);
+          data.data.bookIDsArray.forEach(element => {
+            console.log(element[0])
+          });
           let bookNamesArray = [];//blank array
           let bookAuthorsArray = [];//#2
           let bookRatingsArray = []; let bookPricesArray = []; let bookGenresArray = []; let bookImgsArray = [];
