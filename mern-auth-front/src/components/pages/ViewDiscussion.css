@@ -1,89 +1,57 @@
 
-  #bodycolor {
-    background-color: #8c9697 ;
-  }
-
-h1 {
-    margin-left: 17%;
-     position: absolute;
-     top: 8%;
-     margin-top: auto;
-     color: red;
-    }
-
-table {
-    margin-left: 17%; 
-    position: absolute; 
-    
-    top: 15%; 
-}
-.line{
-    width: 112px;
-    height: 47px;
-    border-bottom: 3px solid black;
-    position: absolute;
-    }
-
-th {
-    margin-left: 15%; 
-    font-family: 'Times New Roman', Times, serif;
-    font-size: x-large;
-    /* NEEDS SPACING TO MAKE WHOLE LINE */
-    padding: 3%;
-    color: rgb(0, 0, 0);
-}
-
-td {
-    text-align: center;
-    font-size: large;
-}
-table.secondaryline{ 
-    margin-top: 4%; 
-    position: absolute; }
-
-  table.mainline{ 
-    border-collapse: collapse;
-        margin-left: 17%; 
-        position: absolute; 
-        
-     }
-
-label{
-    color: red;
-    font-size: x-large;
-    font-weight: bold;
-}
-
-#search {
-    background-color: #0d75de;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 30%;
-  }
-
-  button.sub {border-radius: 30%;}
-
-div.searchbar {
-    margin-left: 60%;
-     position: absolute;
-     top: 8%;
-     margin-top: auto;
-     color: red;
+    div.parentdiv{
+        display: inline-block;
+        top: 0;
+        width: 100%;
+        margin-top: 10%;
+        position: absolute;
     }
 
     img.thumbnail{
-        
-    margin-left: 75%;
-    position: absolute;
-    top: 12%;
-    margin-top: auto;
+        display: inline-flexbox;
+        margin-left: 20%;
     }
 
-#discussions tr:nth-child(even){background-color: #f2f2f2;}
-#discussions tr:hover {background-color: #ddd;}
+    label.message{
+        margin-top: 10%;
+    }
+
+    a.post {
+        box-shadow: 3px 4px 0px 0px #1564ad;
+        background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+        background-color: #79bbff;
+        border-radius: 5px;
+        border: 1px solid #337bc4;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        font-weight: bold;
+        padding: 12px 44px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #528ecc;
+
+    }
+
+    div.test{
+        
+        width: 1000px; 
+        height: 300px; 
+        background-color: rgb(203, 203, 245);  
+    }
+
+    div.postcomment {
+
+    }
+
+    label.message{
+        color: #1564ad;
+        font-size: large;
+    }
+
+    div.thumbnail {
+        display: inline-block;
+        margin-left: 25%;
+        display: inline-block;
+    }

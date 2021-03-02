@@ -27,11 +27,13 @@ export default function Discussions() {
         console.log(parsedData);
         let titles = [];
         let bookNames = [];
+        let discussionID = [];
         for (const index in parsedData) {
           //this loops through every single index withing the array of objects
           titles.push(parsedData[index].title); //push the title for each index in the array, parsed data into titles array
           bookNames.push(parsedData[index].book);
-          console.log(JSON.stringify(parsedData[index].title));
+          discussionID.push(parsedData[index]._id);
+          console.log(JSON.stringify(parsedData[index]._id));
         }
         setbooks(bookNames);
         setDiscussions(titles);
@@ -41,102 +43,70 @@ export default function Discussions() {
   let count = 0;
   let titleArray = []; //Since JSX doesnt allow objects we have to access discussions via an array
   let bookNamesArray = [];
+  let discussionIDArray = [];
   if (discussions.length > 0) {
     titleArray = Object.values(discussions);
-    bookNamesArray = Object.values(books)
+    bookNamesArray = Object.values(books);
+    discussionIDArray = Object.values(discussions);
   }
-  function addToCount(){
-    count++
-    return bookNamesArray[count -1]
+
+  function addToCount() {
+    count++;
+    return bookNamesArray[count - 1];
   }
 
   if (!userData) return null;
 
-  const elements = ["one", "two", "three", "four"];
-  const elements2 = ["5", "6", "7", "8"];
   return (
-    <body id="bodycolor">
-      <div>
-        <LoggedInHeader />
-        {
-          (
-          titleArray.map((
-            x //map g, will loop through each value in the array and store it in x
-          ) => (
-            <>
-            <h2>{x}</h2>
-          <h3>{addToCount()}</h3>
-          </>
-          )))
-        }
+    <>
+      <LoggedInHeader />
+      <div className="parentdiv">
         <h1>Discussions</h1>
-      </div>
-      <div class="searchbar" id="searchbar">
-        <label>Search...</label>
-        <input type="text" placeholder="Search"></input>
-        <button id="search" class="search">
-          Search
-        </button>
-      </div>
-      <div>
-        <table id="mainline" class="mainline line">
-          <tr>
-            <th>Title</th>
-            <th>Creator</th>
-            <th>Book</th>
-            <th>Genre</th>
-          </tr>
-        </table>
-        <table id="secondaryline" class="secondaryline">
-          <td>
-            {elements.map((value, index) => {
-              return <tr key={index}>{elements[0]}</tr>;
-            })}
-          </td>
-          <td>
-            {elements.map((value, index) => {
-              return <tr key={index}>{elements[1]}</tr>;
-            })}
-          </td>
-          <td>
-            {elements.map((value, index) => {
-              return <tr key={index}>{elements[2]}</tr>;
-            })}
-          </td>
-          <td>
-            {elements.map((value, index) => {
-              return <tr key={index}>{elements[3]}</tr>;
-            })}
-          </td>
-        </table>
-      </div>
-    </body>
-  );
-}
-
-{
-  /*
-        <form className="discussionsform" >
-        <table>
-            <thead>
-
-            <tr>
-                <th>Title</th>
-                <th>Creator</th>
-                <th>Book</th>
-                <th>Genre</th>
-            </tr>
-            </thead>
+        <div>
+          <table id="mainline" className="mainline line">
             <tbody>
-                {}
-            <tr>
-                <td>Title</td>
-                <td>Creator</td>
-                <td>Book</td>
-                <td>Genre</td>
-            </tr>
+              <tr>
+                <th>Title</th>
+                <th>Book</th>
+              </tr>
             </tbody>
-        </table>
-        </form>
-    */
+          </table>
+          <table id="secondaryline" className="secondaryline">
+            <tbody>
+              <tr>
+                <td>
+                  {titleArray.map((x) => (
+                    <>
+                      <a href="">
+                        <h2>Title: {x}</h2>
+                        <h3>Book Name: {addToCount()}</h3>
+                      </a>
+                    </>
+                  ))}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <a id="link" className="createnew" href="/Creatediscussion">
+            Create Discussion
+          </a>
+        </div>
+
+
+
+
+        
+        <div className="searchbar" id="searchbar">
+          <label className="searchlbl">Search...</label>
+          <br></br>
+          <input placeholder="Discussion Search"></input>
+          <br></br>
+          <br></br>
+          <a id="search" href="/Creatediscussion" className="search">
+            Search
+          </a>
+        </div>
+      </div>
+    </>
+  );
 }

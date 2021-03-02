@@ -3,6 +3,7 @@ body {
   }
   
   input[type=text], select {
+    
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -36,15 +37,29 @@ body {
   }
 
   #create {
-    background-color: #0d75de;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    box-shadow:inset 0px -3px 7px 0px #29bbff;
+background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+background-color:#2dabf9;
+border-radius:3px;
+border:1px solid #0b0e07;
+display:inline-block;
+cursor:pointer;
+color:#ffffff;
+font-family:Arial;
+font-size:15px;
+padding:9px 23px;
+text-decoration:none;
+text-shadow:0px 1px 0px #263666;
+  margin-left: 17%;
+  }
+
+  #create:hover{
+    background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+	background-color:#0688fa;
+  }
+  #create:active {
+    position:relative;
+	top:1px;
   }
 
   button.sub {border-radius: 30%;}

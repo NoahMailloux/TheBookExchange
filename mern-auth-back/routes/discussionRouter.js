@@ -4,91 +4,86 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const User = require("../models/userModel");
 const Discussion = require("../models/discussionmodel");
-const Comment = require("../models/commentsmodel")
+const Comment = require("../models/commentsmodel");
 const { db } = require("../models/userModel");
 const DiscussionFollows = require("../models/discussionFollowsModel"); //require discussionFollowsModel
 
-
-
 /*Ignore this */
 //Find a user
-router.get("/", auth, async (req, res) =>{
+router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({
-      displayName: user.displayName,
-      id: user._id,
+    displayName: user.displayName,
+    id: user._id,
   });
 });
 //
 
 //CREATE DISCUSSION
-router.post("/creatediscussion", async (req, res) =>{
-//comments
-
-
-const discussion = await Discussion.findById(req.user);
-
-const {title = "Ron Vs Harry", creator = "erick", book = "harry potter", genre = "Sci-Fi", comment } = req.body;
-try{
-  const token = req.header("x-auth-token");
-  if(!token) return res.json(false);
-
-  const verified = jwt.verify(token, process.env.JWT_SECRET);
-  if(!verified) return res.json(false);
-
-  const user = await User.findById(verified.id);
-  if(!user) return res.json(false);
-
-
-if(!title || !book || !creator || !genre)
-return res.status(400).json({msg: "Not all fields have been entered."});
-
-
-
-  const newDiscussion = new Discussion({
-    title: title,
-    creator: user._id,
-    book: book,
-    genre: genre,
-    //comment: comment is going to be connected through axios
-});
-const creatediscussion = await newDiscussion.save();
-        res.json(creatediscussion);
-
-
- }catch(err){ 
-     res.status(500).json({error: err.message});
- }
-});
-
-
-
-  //LIST DISCUSSIONS
-router.post("/listdiscussions", async (req, res) =>{
+router.post("/creatediscussion", async (req, res) => {
   //comments
 
   const discussion = await Discussion.findById(req.user);
 
-  try{
+  const { title = "", creator = "", book = "", genre = "", comment } = req.body;
+  try {
     const token = req.header("x-auth-token");
-    if(!token) return res.json("no token");
-  
+    if (!token) return res.json({ msg: "No Token" });
+
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    if(!verified) return res.json("unverified");
-  
+    if (!verified) return res.json({ msg: "Invalid Token" });
+
     const user = await User.findById(verified.id);
-    if(!user) return res.json("no user");
+    if (!user) return res.json({ msg: "No User" });
 
-//print all discussion records
-const  discussions = await Discussion.find({}).exec();
-res.json(JSON.stringify(discussions))
+    let errorMsg = ""
+    if (!title) errorMsg += "no title. ";
+    if (!book) errorMsg += "no book. ";
+    if (!creator) errorMsg += "no Creator ";
+    if (!genre) errorMsg += "no genre. ";
+    
+    if(errorMsg)
+    return res.status(400).json({ msg: errorMsg });
 
-  console.log(JSON.stringify(discussions, null, 2));
-   }catch(err){ 
-       res.status(500).json({error: err.message});
-   }
-  });
+    const newDiscussion = new Discussion({
+      title: title,
+      creator: user._id,
+      book: book,
+      genre: genre,
+      comment: comment,
+      //comment: comment is going to be connected through axios
+    });
+    const creatediscussion = await newDiscussion.save();
+    res.json(creatediscussion);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
+//LIST DISCUSSIONS
+router.post("/listdiscussions", async (req, res) => {
+  //comments
 
+  const discussion = await Discussion.findById(req.user);
+
+  try {
+    const token = req.header("x-auth-token");
+    if (!token) return res.json("no token");
+
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json("unverified");
+
+    const user = await User.findById(verified.id);
+    if (!user) return res.json("no user");
+
+    //print all discussion records
+    const discussions = await Discussion.find({}).exec();
+    res.json(JSON.stringify(discussions));
+
+    console.log(JSON.stringify(discussions, null, 2));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = router;

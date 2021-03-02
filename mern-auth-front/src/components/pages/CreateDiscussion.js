@@ -1,127 +1,122 @@
-import React, {useEffect, useContext, useState, useCallback}  from 'react';
-import {useHistory} from "react-router-dom";
+import React, { useEffect, useContext, useState, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import AuthOptions from '../auth/AuthOptions';
-import "./CreateDiscussion.css"
-import LoggedInHeader from '../layout/LoggedInHeader';
-import axios from 'axios';
+import AuthOptions from "../auth/AuthOptions";
+import "./CreateDiscussion.css";
+import LoggedInHeader from "../layout/LoggedInHeader";
+import Axios from "axios";
+import ErrorNotice from "../misc/ErrorNotice";
 
 export default function CreateDiscussion() {
+  const [error, setError] = useState();
+  
 
-    
-    const [discussions, setDiscussions] = useState([])
-    const {userData} = useContext(UserContext);
-    const history = useHistory();
+  const [title, setTitle] = useState();
+  const [book, setBook] = useState();
+  const [genre, setGenre] = useState();
+  const [comment, setComment] = useState();
+  //const [discussions, setDiscussions] = useState([])
+  const {userData} = useContext(UserContext);
+  const history = useHistory();
 
-    /*  DO NOT USE
-    const authAxios = axios.create({
-        baseURL: "http://localhost:5001/discussion/listdiscussions",
-        headers: {
-            Authorization: userData.token
+
+  useEffect(() => {
+
+  }, [userData] )
+
+  if(!userData)
+  return null
+
+  //submit form test
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+
+        const data = {
+            title: title, 
+            book: book, 
+            genre: genre,
+            comment: comment,
+            creator: userData.userData.id,
         }
-    })*/
-
-/* TABLE GENERATOR TEST
-    const tableGenerator = () => {
-        return (
-          <table>
-            <tr>
-            </tr>
-          </table>
-        );
-      }
-*/
-    const fetchDiscussions = useCallback(async() => {
-        
-        try{
-
-            const loaddiscussions = await axios.post("http://localhost:5001/discussion/listdiscussions", 
-            {
-                headers: {
-                    "x-auth-token": userData.token,
-                    "Content-Type": "text/json"
-                }
-            })
-            this.state(loaddiscussions)
-        }catch(err){
-            console.log(err.message)
-        }
-    })
-
-
-    /*
-    useEffect(() =>  {
-
-        async function getdiscussions(){
-            
-
-        const loaddiscussions = await axios.post("http://localhost:5001/discussion/listdiscussions", 
-        {
+        const header = {
             headers: {
-                "x-auth-token": userData.token,
-                "Content-Type": "text/json"
+                "x-auth-token" : userData.userData.token,
+                "Content-Type" : "text/json",
             }
-        })
-        setState(loaddiscussions)
         }
+        console.log(userData.user)
+      //const newDiscussion = { title, book, genre, comment, creator };
+      const createDiscussRes = await Axios.post(
+        "http://localhost:5001/discussion/creatediscussion", data, header
+      );
+      console.log(createDiscussRes)
+      /*
+            setUserData({
+                token: loginRes.data.token,
+                user: loginRes.data.user,
+            });*/
+      //localStorage.setItem("auth-token", loginRes.data.token);
+      //history.push("/");
+    } catch (err) {
+      //err.response.data.msg && setError(err.response.data.msg);
+      console.log(JSON.stringify(err.response))
+    }
+  };
 
-        getdiscussions()
-        //console.log(loaddiscussions)
-    }, [more])
-    */
-        //e.preventDefault();
+  return (
+    <>
+      <LoggedInHeader />
 
-    return(
-      
-    <body id="bodycolor">
+      <div className="container">
+        {error && (
+          <ErrorNotice message={error} clearError={() => setError(undefined)} />
+        )}
+        <form onSubmit={submit}>
+          <h3 id="fname">Title</h3>
+          <input
+            id="title"
+            name="title"
+            className="inputs"
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+          ></input>
 
-    <LoggedInHeader />
-    
+          <h3 id="lname">Book</h3>
+          <input
+            id="Book"
+            name="Book"
+            className="inputs"
+            placeholder="Book"
+            onChange={(e) => setBook(e.target.value)}
+          ></input>
 
-<div class="container">
-<form action="google.com">
-<h3 for="fname">Title</h3>
-    <input type="text" id="title" name="title" placeholder="Title"></input>
+          <h3 id="lname">Genre</h3>
+          <input
+            id="Genre"
+            name="Genre"
+            className="inputs"
+            placeholder="Genre"
+            onChange={(e) => setGenre(e.target.value)}
+          ></input>
 
-    <h3 for="lname">Book</h3>
-    <input type="text" id="Book" name="Book" placeholder="Book"></input>
-
-    <h3 for="lname">Genre</h3>
-    <input type="text" id="Genre" name="Genre" placeholder="Genre"></input>
-
-    <h3 for="lname">Comment</h3>
-    <br></br>
-    <textarea id="Genre" name="Comment" placeholder="Insert Comment" rows="6" cols="50"></textarea>
-        <br></br>
-    <button id="create" class="sub" name="create">Create</button>
-</form>
-</div>
-    </body>
-
-    );
-}
-
-    {/*
-        <form className="discussionsform" >
-        <table>
-            <thead>
-
-            <tr>
-                <th>Title</th>
-                <th>Creator</th>
-                <th>Book</th>
-                <th>Genre</th>
-            </tr>
-            </thead>
-            <tbody>
-                {}
-            <tr>
-                <td>Title</td>
-                <td>Creator</td>
-                <td>Book</td>
-                <td>Genre</td>
-            </tr>
-            </tbody>
-        </table>
+          <h3 id="lname">Comment</h3>
+          <br></br>
+          <textarea
+            id="Comment"
+            name="Comment"
+            className="inputs"
+            placeholder="Insert Comment"
+            onChange={(e) => setComment(e.target.value)}
+            rows="6"
+            cols="50"
+          ></textarea>
+          <br></br>
+          <button id="create" className="sub" name="create">
+            Create
+          </button>
         </form>
-    */}
+      </div>
+    </>
+  );
+}
