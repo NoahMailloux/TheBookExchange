@@ -17,8 +17,8 @@ router.post("/searchBook", async (req, res) => {
 
   fetch("https://api.zinc.io/v1/search?query=fish%20oil&page=1&retailer=amazon", {
   headers: {
-    user: "AA643D1CDFAC51F55D59F880",
-    password: "296303s"
+    Authorization: "AA643D1CDFAC51F55D59F880",
+    Password: ""
   }
 })
     .then((res) => res.text())
