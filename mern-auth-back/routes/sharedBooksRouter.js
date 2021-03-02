@@ -72,7 +72,7 @@ router.get("/mySharedBooks", async (req, res) => { //when /mySharedBooks is requ
             const books = await Book.find({bookID:myBooks[index].bookID}).exec(); //grab the book by the bookID we got from previous call
             bookIDsArray.push(books); //add to array
         }
-        res.json(JSON.stringify({bookIDsArray})  
+        res.json(JSON.stringify({bookIDsArray}))  
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch
