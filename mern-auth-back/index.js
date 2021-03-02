@@ -41,3 +41,4 @@ mongoose.connect(
     app.use("/genres", require("./routes/genresRouter"));
     app.use("/orders", require("./routes/ordersRouter"));
     app.use("/monthlybook", require("./routes/thismonthbookRouter"));
+    app.use("/zinc", require("./routes/zincRoutes"));

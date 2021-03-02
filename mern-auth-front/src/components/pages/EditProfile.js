@@ -7,13 +7,15 @@ import LoggedInHeader from '../layout/LoggedInHeader';
 import Axios from "axios";
 
 
-export default function Settings() {
+export default function EditProfile() {
     const userData = useContext(UserContext);
     const [users, setUsers] = useState({});
     const history = useHistory();
     const editAddress = () => history.push("/editAddress")
     const editPaypal = () => history.push("/editPaypal")
     const editProfile = () => history.push("/editProfile")
+    const settings = () => history.push("/settings")
+
 
     useEffect(() => {//when component renders run this
         if (userData.userData.token) {
@@ -64,7 +66,7 @@ export default function Settings() {
                     <p className="settingsP">City:{u[1]}</p>
                     <p className="settingsP">State:{u[2]}</p>
                     <p className="settingsP">Zip Code:{u[3]}</p>
-                    <button className="settingsBtn" onClick={editAddress}>Edit Address</button>
+                    <button className="settingsBtn2" onClick={editAddress}>Edit Address</button>
                 </div>
                 <div className="settingsPaymentContainer">
                     <h2 className="settingsH2">Payment</h2>
@@ -77,7 +79,8 @@ export default function Settings() {
                     <p className="settingsP">Last Name:{u[6]}</p>
                     <p className="settingsP">Email:{u[7]}</p>
                     <p className="settingsP">Telephone:{u[8]}</p>
-                    <button className="settingsBtn" onClick={editProfile}>Edit Profile</button>
+                    <button className="settingsBtn2" onClick={settings}>Done</button>
+                    <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>
         </div>
 

@@ -33,8 +33,9 @@ router.post("/addBook", async (req, res) => { //when /addBook is requested this 
 }); // end router.post("/addBook" //This route creates a new book record.
 // Must pass name, genreID, rating, price, author, synopsis in body
 
-router.get("/myBooks", async (req, res) => { //when /myBooks is requested this will be run
+router.get("/myBooks", async (req, res) => { //when /myBooks is requested this will be run  
     try{
+        const {book_ID} = req.body; //grab info from body
         const token = req.header("x-auth-token"); //grab token
         if(!token) return res.json(false); //if no token, don't accept
         const verified = jwt.verify(token, process.env.JWT_SECRET);
@@ -42,21 +43,8 @@ router.get("/myBooks", async (req, res) => { //when /myBooks is requested this w
         const user = await User.findById(verified.id);
         if(!user) return res.json(false); //if token doesn't match a user, don't accept
         data = jwt.decode(token,process.env.JWT_SECRET); // verify & decode
-        const myBooks = SharedBook.find({receiverID:data.id}).exec(); //grabs all sharedBooks for the currently logged in user by reciverID
-        booksArray = []
-
-        
-       // myBooks.forEach(element => {
-            //booksArray.push(element.bookID) 
-         //   const books = Books.find({bookID:element.bookID}).exec();
-        //    booksArray.push(books)
-       // });
-
-
-        //loop through my books
-        //database query grab book info for each bookID
-
-        res.json(JSON.stringify(booksArray)) //sends back all sharedBooks records
+        const books = await Book.find({bookID:book_ID}).exec(); //grabs all books for according to book_ID passed in JSON body
+        res.json(JSON.stringify(books)) //sends back all sharedBooks records
     }catch(err){
         res.status(500).json({error: err.message});
     } //end try,catch

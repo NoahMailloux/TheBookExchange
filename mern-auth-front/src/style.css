@@ -105,12 +105,13 @@ body{
 }
 .loginPageContainer{
     position: relative;
+    
 }
 .loginContainer{
 
     /* Center vertically */
     position: absolute;
-    top: 10%;
+    top: 5%;
     left:35%;
     background-color: #FFFFFF;
     width: 600px;
@@ -152,6 +153,14 @@ body{
     height: 59px;
 }
 .loginForgotPw{
+    color: #8190A5;
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 22px;
+    width: 600px;
+    text-align: center;
+}
+.registerTermsP{
     color: #8190A5;
     font-family: Lato;
     font-size: 14px;
@@ -298,7 +307,7 @@ float:right;
 .t1p {
     color: #FFFFFF;
     font-family: Lato;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 130%;
     width: 575px;
     font-weight: bold;
@@ -504,6 +513,20 @@ margin-left: 1%;
     height: 50px;
     font-weight: bold;  
     margin-bottom: 1%;
+}
+.settingsBtn2{
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 20px;
+    line-height: 45px;
+    background-color: #3394CC;
+    border-radius: 36px;
+    width: 100px;
+    height: 45px;
+    font-weight: bold;  
+    margin-bottom: 1%;
+    margin-right: 2%;
+    margin-left: 2%;
 }
 
 /*popups */
