@@ -1,17 +1,16 @@
 div.parentdiv {
   float: none;
   display: inline-block;
-  top: -100px;
+  top: 0;
   width: 100%;
   margin-left: 17%;
 }
 
 div.searchbar{
-  float: left;
-}
-div.discussionbar{
-  float: left;
-  width: 50%;
+  float: none;
+  display: inline-block;
+  margin-top: 0%;
+  margin-left: 47%;
 }
 label.searchlbl{
   font-size: 35px;

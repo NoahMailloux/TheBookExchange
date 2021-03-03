@@ -168,14 +168,9 @@ export default function Overview() {
       <LoggedInHeader />
       <div className="parentdiv">
       <h1>Overview</h1>
-
-          <table className="mainline line">{items}</table>
-         
-
+          <table className="mainline line">{items}</table>  
       </div>
-     
-    </div>
-    
+    </div>  
   );
 /* <PageBottom /> */
 }
