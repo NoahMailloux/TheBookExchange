@@ -56,7 +56,7 @@ export default function Settings() {
         <>
     <div>
         <LoggedInHeader />
-        <h1>Settings</h1>
+        <div className="parentdiv"><h1>Settings</h1></div>  
         <div className="settingsContainer">
             <div className="settingsAddressContainer">
                     <h2 className="settingsH2">Address</h2>

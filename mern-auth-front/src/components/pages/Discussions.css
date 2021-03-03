@@ -1,7 +1,7 @@
 div.parentdiv {
   float: none;
   display: inline-block;
-  top: 0;
+  top: -100px;
   width: 100%;
   margin-left: 17%;
 }

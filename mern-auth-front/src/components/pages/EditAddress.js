@@ -60,14 +60,15 @@ export default function EditAddress() {
         <>
     <div>
         <LoggedInHeader />
-        <h1>Settings</h1>
+        <div className="parentdiv"><h1>Settings</h1></div>  
         <div className="settingsContainer">
             <div className="settingsAddressContainer">
                     <h2 className="settingsH2">Address</h2>
-                    <p className="settingsP">Street:{u[0]}</p>
-                    <p className="settingsP">City:{u[1]}</p>
-                    <p className="settingsP">State:{u[2]}</p>
-                    <p className="settingsP">Zip Code:{u[3]}</p>
+                    <p className="settingsP">Street:</p><input placeholder={u[0]}></input><br/><br/>
+                    <p className="settingsP">City:</p><input placeholder={u[1]}></input><br/><br/>
+                    <p className="settingsP">State:</p><input placeholder={u[2]}></input><br/><br/>
+                    <p className="settingsP">Zip Code:</p><input placeholder={u[3]}></input>
+                    <br/><br/>
                     <button className="settingsBtn2" onClick={settings}>Done</button>
                     <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>

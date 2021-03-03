@@ -167,6 +167,19 @@ export default function MyBooks() {
   
     return (
       <div>
+        <LoggedInHeader />
+          <div className="parentdiv">
+          <h1>Books Shared With Me</h1>
+              <table className="mainline line">{items}</table>  
+          </div>
+      </div>  
+      
+    );
+  /* <PageBottom /> */
+  }
+  
+  /*
+      <div>
         {console.log(items)}
         <LoggedInHeader />
         <h1>Books Shared With Me</h1>
@@ -176,10 +189,5 @@ export default function MyBooks() {
            
           </div>  
         </div>  
-       
       </div>
-      
-    );
-  /* <PageBottom /> */
-  }
-  
+  */

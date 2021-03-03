@@ -166,13 +166,13 @@ export default function Overview() {
     <div>
       {console.log(items)}
       <LoggedInHeader />
+      <div className="parentdiv">
       <h1>Overview</h1>
-      <div className="myBooksOutterContainer">
-        <div className="myBooksInnerContainer">
-          <table>{items}</table>
+
+          <table className="mainline line">{items}</table>
          
-        </div>  
-      </div>  
+
+      </div>
      
     </div>
     
