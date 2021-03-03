@@ -9,48 +9,44 @@ import ErrorNotice from "../misc/ErrorNotice";
 
 export default function CreateDiscussion() {
   const [error, setError] = useState();
-  
 
   const [title, setTitle] = useState();
   const [book, setBook] = useState();
   const [genre, setGenre] = useState();
   const [comment, setComment] = useState();
   //const [discussions, setDiscussions] = useState([])
-  const {userData} = useContext(UserContext);
+  const { userData } = useContext(UserContext);
   const history = useHistory();
 
+  useEffect(() => {}, [userData]);
 
-  useEffect(() => {
-
-  }, [userData] )
-
-  if(!userData)
-  return null
+  if (!userData) return null;
 
   //submit form test
   const submit = async (e) => {
     e.preventDefault();
     try {
-
-        const data = {
-            title: title, 
-            book: book, 
-            genre: genre,
-            comment: comment,
-            creator: userData.userData.id,
-        }
-        const header = {
-            headers: {
-                "x-auth-token" : userData.userData.token,
-                "Content-Type" : "text/json",
-            }
-        }
-        console.log(userData.user)
+      const data = {
+        title: title,
+        book: book,
+        genre: genre,
+        comment: comment,
+        creator: userData.userData.id,
+      };
+      const header = {
+        headers: {
+          "x-auth-token": userData.userData.token,
+          "Content-Type": "text/json",
+        },
+      };
+      console.log(userData.user);
       //const newDiscussion = { title, book, genre, comment, creator };
       const createDiscussRes = await Axios.post(
-        "http://localhost:5001/discussion/creatediscussion", data, header
+        "http://localhost:5001/discussion/creatediscussion",
+        data,
+        header
       );
-      console.log(createDiscussRes)
+      console.log(createDiscussRes);
       /*
             setUserData({
                 token: loginRes.data.token,
@@ -60,7 +56,7 @@ export default function CreateDiscussion() {
       //history.push("/");
     } catch (err) {
       //err.response.data.msg && setError(err.response.data.msg);
-      console.log(JSON.stringify(err.response))
+      console.log(JSON.stringify(err.response));
     }
   };
 
@@ -72,6 +68,7 @@ export default function CreateDiscussion() {
         {error && (
           <ErrorNotice message={error} clearError={() => setError(undefined)} />
         )}
+        <h1>Create Discussion</h1>
         <form onSubmit={submit}>
           <h3 id="fname">Title</h3>
           <input

@@ -64,12 +64,20 @@ export default function Discussions() {
         <h1 id="mainline" className="mainline">
           Discussion Title
         </h1>
-        <div className="test">
+        <div className="comments">
+        <div className="initialComment">
           <label >first comment div</label>
           <br></br>
           <label >first comment div</label>
         </div>
 
+        
+        <div className="generalComments">
+          <label >General comment div</label>
+          <br></br>
+          <label >General comment div</label>
+        </div>
+        </div>
         <div className="postcomment">
         <label id="message" className="message">
           Your message

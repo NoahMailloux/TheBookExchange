@@ -7,10 +7,11 @@ div.parentdiv {
 }
 
 div.searchbar{
-  float: none;
-  display: inline-block;
-  margin-top: 0%;
-  margin-left: 47%;
+  float: left;
+}
+div.discussionbar{
+  float: left;
+  width: 50%;
 }
 label.searchlbl{
   font-size: 35px;

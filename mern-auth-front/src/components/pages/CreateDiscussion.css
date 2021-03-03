@@ -1,74 +1,75 @@
 body {
-    font-family: Arial;
-  }
-  
-  input[type=text], select {
-    
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-  
-  div.container {
-    border-radius: 5px;
-    padding: 20px;
-    margin-left: 17%; 
-    position: absolute; 
-    top: 10%; 
-    margin-top: auto;
-  }
+  font-family: Arial;
+}
 
-  #create {
-    box-shadow:inset 0px -3px 7px 0px #29bbff;
-background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
-background-color:#2dabf9;
-border-radius:3px;
-border:1px solid #0b0e07;
-display:inline-block;
-cursor:pointer;
-color:#ffffff;
-font-family:Arial;
-font-size:15px;
-padding:9px 23px;
-text-decoration:none;
-text-shadow:0px 1px 0px #263666;
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  width: 100%;
+  background-color: #4caf50;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+div.container {
+  border-radius: 5px;
+  padding: 20px;
   margin-left: 17%;
-  }
+  position: absolute;
+  top: 10%;
+  margin-top: auto;
+}
 
-  #create:hover{
-    background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
-	background-color:#0688fa;
-  }
-  #create:active {
-    position:relative;
-	top:1px;
-  }
+#create {
+  box-shadow: inset 0px -3px 7px 0px #29bbff;
+  background: linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+  background-color: #2dabf9;
+  border-radius: 3px;
+  border: 1px solid #0b0e07;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 9px 23px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #263666;
+  margin-left: 17%;
+}
 
-  button.sub {border-radius: 30%;}
+#create:hover {
+  background: linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+  background-color: #0688fa;
+}
+#create:active {
+  position: relative;
+  top: 1px;
+}
 
-  #bodycolor {
-    background-color: #8c9697 ;
-  }
+button.sub {
+  border-radius: 30%;
+}
 
-  h3{
-    color: red;
+#bodycolor {
+  background-color: #8c9697;
+}
 
-  }
+h3 {
+  color: red;
+}

@@ -7,9 +7,17 @@
         position: absolute;
     }
 
+    div.comments{
+        float: left;
+    }
+
+    div.postcomment{
+        float: left;
+        margin-left: 58%;
+        width: 50%;
+    }
     img.thumbnail{
-        display: inline-flexbox;
-        margin-left: 20%;
+        float: left;
     }
 
     label.message{
@@ -34,11 +42,18 @@
 
     }
 
-    div.test{
+    div.initialComment{
         
-        width: 1000px; 
-        height: 300px; 
+        width: 700px; 
+        height: 250px; 
         background-color: rgb(203, 203, 245);  
+    }
+
+    div.generalComments{
+        margin-top: 3%;
+        width: 700px; 
+        height: 250px; 
+        background-color: rgb(147, 75, 241);  
     }
 
     div.postcomment {
@@ -51,7 +66,7 @@
     }
 
     div.thumbnail {
-        display: inline-block;
+        display: none;
         margin-left: 25%;
         display: inline-block;
     }

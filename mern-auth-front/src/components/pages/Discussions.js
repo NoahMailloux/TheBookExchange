@@ -62,8 +62,8 @@ export default function Discussions() {
       <LoggedInHeader />
       <div className="parentdiv">
         <h1>Discussions</h1>
-        <div>
-          <table id="mainline" className="mainline line">
+        <div className="discussionbar">
+          <table id="mainline" className="mainline">
             <tbody>
               <tr>
                 <th>Title</th>
