@@ -22,11 +22,11 @@ router.get("/", auth, async (req, res) => {
 //CREATE DISCUSSION
 router.post("/creatediscussion", async (req, res) => {
   //comments
-
+  const user = await User.findById(req.user);
   const discussion = await Discussion.findById(req.user);
-
-  const { title = "", creator = "", book = "", genre = "", comment } = req.body;
+  const { title = "test", creator = "" , book = "test", genre = "test", comment = "test" } = req.body;
   try {
+    
     const token = req.header("x-auth-token");
     if (!token) return res.json({ msg: "No Token" });
 
@@ -39,15 +39,15 @@ router.post("/creatediscussion", async (req, res) => {
     let errorMsg = ""
     if (!title) errorMsg += "no title. ";
     if (!book) errorMsg += "no book. ";
-    if (!creator) errorMsg += "no Creator ";
+    //if (!creator) errorMsg += "no Creator ";
     if (!genre) errorMsg += "no genre. ";
-    
+    console.log(user.displayName)
     if(errorMsg)
     return res.status(400).json({ msg: errorMsg });
 
     const newDiscussion = new Discussion({
       title: title,
-      creator: user._id,
+      creator: user.displayName,
       book: book,
       genre: genre,
       comment: comment,

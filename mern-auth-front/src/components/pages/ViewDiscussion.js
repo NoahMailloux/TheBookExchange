@@ -15,7 +15,7 @@ export default function Discussions() {
 
   useEffect(() => {
     if (userData.userData.token) {
-      //console.log(userData.userData.token);
+      console.log(userData.userData.token);
       Axios.post("http://localhost:5001/discussion/listdiscussions", null, {
         headers: {
           "x-auth-token": userData.userData.token,
@@ -33,6 +33,7 @@ export default function Discussions() {
           bookNames.push(parsedData[index].book);
           discussionID.push(parsedData[index]._id);
           console.log(JSON.stringify(parsedData[index]._id));
+          
         }
         setbooks(bookNames);
         setDiscussions(titles);
@@ -54,7 +55,6 @@ export default function Discussions() {
     count++;
     return bookNamesArray[count - 1];
   }*/
-
   if (!userData) return null;
 
   return (
