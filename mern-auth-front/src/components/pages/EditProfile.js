@@ -75,10 +75,10 @@ export default function EditProfile() {
                 </div>
                 <div className="settingsEditProfileContainer">
                     <h2 className="settingsH2">Edit Profile</h2>
-                    <p className="settingsP">First Name:{u[5]}</p>
-                    <p className="settingsP">Last Name:{u[6]}</p>
-                    <p className="settingsP">Email:{u[7]}</p>
-                    <p className="settingsP">Telephone:{u[8]}</p>
+                    <p className="settingsP">First Name:</p><input placeholder={u[5]}></input><br/><br/>
+                    <p className="settingsP">Last Name:</p><input placeholder={u[6]}></input><br/><br/>
+                    <p className="settingsP">Email:</p><input placeholder={u[7]}></input><br/><br/>
+                    <p className="settingsP">Telephone:</p><input placeholder={u[8]}></input><br/><br/>
                     <button className="settingsBtn2" onClick={settings}>Done</button>
                     <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>
