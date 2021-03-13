@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
+const userModel = require("../models/userModel");
 const User = require("../models/userModel");
 
 router.post("/register", async (req, res) => {
@@ -224,6 +225,31 @@ router.post("/creatediscussion", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.put("/updateAddress", auth, async (req, res) =>{
+
+    const user = await User.findById(req.user);
+    console.log(req.body.address);
+    const address = req.body.address;
+    const city = req.body.city;
+    const state = req.body.state;
+    const postCode = req.body.postCode;
+    console.log("got here, router.put")
+    try{
+        await userModel.findById(req.user, (err, updatedUser)=>{
+            updatedUser.address = address
+            updatedUser.city = city
+            updatedUser.state = state
+            updatedUser.postCode = postCode
+            updatedUser.save
+            console.log("got here, try")
+            res.send("Update");
+        });
+    }catch(err){
+        console.log(err);
+    }
+});
+
 
 module.exports = router;
 

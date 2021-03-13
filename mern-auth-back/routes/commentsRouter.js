@@ -80,8 +80,10 @@ router.post("/createcomment", async (req, res) =>{
   router.post("/listcomments", async (req, res) =>{
     //comments
   
+    const sendId = req.body.sendId;
+    console.log(sendId)
+    
     const comments = await Comments.findById(req.user);
-
   try{
     const token = req.header("x-auth-token");
     if(!token) return res.json(false);
@@ -92,18 +94,11 @@ router.post("/createcomment", async (req, res) =>{
     const user = await User.findById(verified.id);
     if(!user) return res.json(false);
 
+//print all comments records
+const comments = await Comments.find({ _id: sendId }).exec();
+    res.json(JSON.stringify(comments));
 
-//print all discussion records
-  const collection = db.collection('comments');
-
-  collection.find({}).toArray(function(err, comments){
-
-    console.log(JSON.stringify(comments, null, 2));
-  });
-
-
-
-    return res.json(true);
+   res.json(JSON.stringify(comments));
    }catch(err){ 
        res.status(500).json({error: err.message});
    }

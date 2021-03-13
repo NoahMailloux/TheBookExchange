@@ -70,7 +70,7 @@ export default function EditPaypal() {
                 </div>
                 <div className="settingsPaymentContainer">
                     <h2 className="settingsH2">Payment</h2>
-                    <p className="settingsP">PayPal ID:{u[4]}</p>
+                    <p className="settingsP">PayPal ID:</p><input placeholder={u[4]}></input><br/><br/>
                     <button className="settingsBtn2" onClick={settings}>Done</button>
                     <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>

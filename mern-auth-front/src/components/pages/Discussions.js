@@ -5,13 +5,27 @@ import AuthOptions from "../auth/AuthOptions";
 import "./Discussions.css";
 import LoggedInHeader from "../layout/LoggedInHeader";
 import Axios from "axios";
+import ViewDiscussion from "./ViewDiscussion"
+
 
 export default function Discussions() {
-  const [discussions, setDiscussions] = useState({});
+  const [discussions, setDiscussions] = useState();
   const [books, setbooks] = useState({});
+
+
 
   const userData = useContext(UserContext);
   const history = useHistory();
+  const [discussionId, setDiscussionId] = useState();
+
+  const submit = (did) => {
+    console.log(did)
+    setDiscussionId(did)
+  }
+
+  const reset = () => {
+    setDiscussionId(null)
+  }
 
   //http://localhost:5001/discussion/listdiscussions
   useEffect(() => {
@@ -24,11 +38,13 @@ export default function Discussions() {
         },
       }).then((data) => {
         let parsedData = JSON.parse(data.data);
-        console.log(parsedData);
+
+        console.log(data.data)
+        //console.log(JSON.stringify(parsedData));
         let titles = [];
         let bookNames = [];
         let discussionID = [];
-        for (const index in parsedData) {
+       /* for (const index in parsedData) {
           //this loops through every single index withing the array of objects
           titles.push(parsedData[index].title); //push the title for each index in the array, parsed data into titles array
           bookNames.push(parsedData[index].book);
@@ -36,7 +52,10 @@ export default function Discussions() {
           console.log(JSON.stringify(parsedData[index]._id));
         }
         setbooks(bookNames);
-        setDiscussions(titles);
+        setDiscussions(titles);*/
+
+        setDiscussions(parsedData)
+
       });
     }
   }, [userData]);
@@ -44,43 +63,43 @@ export default function Discussions() {
   let titleArray = []; //Since JSX doesnt allow objects we have to access discussions via an array
   let bookNamesArray = [];
   let discussionIDArray = [];
+  /*
   if (discussions.length > 0) {
     titleArray = Object.values(discussions);
     bookNamesArray = Object.values(books);
     discussionIDArray = Object.values(discussions);
   }
+  */
+  //console.log(discussionIDArray)
 
   function addToCount() {
     count++;
     return bookNamesArray[count - 1];
   }
 
-  if (!userData) return null;
+  if (!userData || !discussions) return null;
+
 
   return (
     <>
       <LoggedInHeader />
-      <div className="parentdiv">
+      {
+        !discussionId?(
+          <div className="parentdiv">
         <h1>Discussions</h1>
+        <h6>________________________________</h6>
         <div className="discussionbar">
-          <table id="mainline" className="mainline">
-            <tbody>
-              <tr>
-                <th>Title</th>
-                <th>Book</th>
-              </tr>
-            </tbody>
-          </table>
           <table id="secondaryline" className="secondaryline">
             <tbody>
               <tr>
                 <td>
-                  {titleArray.map((x) => (
+                  {discussions.map((x) => (
                     <>
-                      <a href="">
-                        <h2>Title: {x}</h2>
-                        <h3>Book Name: {addToCount()}</h3>
-                      </a>
+                      <form onSubmit={(e) => {e.preventDefault(); submit(x._id)}}>
+                        <h2>Title: {x.title}</h2>
+                        <h3>Book Name: {x.book}</h3>
+                        <input type="submit" value="View Discussion" />
+                      </form>
                     </>
                   ))}
                 </td>
@@ -91,11 +110,7 @@ export default function Discussions() {
             Create Discussion
           </a>
         </div>
-
-
-
-
-        
+        {/*
         <div className="searchbar" id="searchbar">
           <label className="searchlbl">Search...</label>
           <br></br>
@@ -105,8 +120,9 @@ export default function Discussions() {
           <a id="search" href="/Creatediscussion" className="search">
             Search
           </a>
-        </div>
+        </div>*/}
       </div>
+        ):(<ViewDiscussion d = {discussionId} r = {reset} />)      }
     </>
   );
 }

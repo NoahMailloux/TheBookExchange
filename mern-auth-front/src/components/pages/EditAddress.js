@@ -15,6 +15,26 @@ export default function EditAddress() {
     const editPaypal = () => history.push("/editPaypal")
     const editProfile = () => history.push("/editProfile")
     const settings = () => history.push("/settings")
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [postCode, setPostCode] = useState(0);
+
+    const updateAddress = ()=> {
+      Axios.put("http://localhost:5001/users/updateAddress", {
+        address: address,
+        city: city,
+        state: state,
+        postCode: postCode
+      },{
+        headers: {
+          "x-auth-token": userData.userData.token,
+          "Content-Type": "text/json",
+        }
+      })
+      console.log("got here updateAddress = (id)=>")
+      //console.log(userData.userData.user.id)
+    }
 
 
     useEffect(() => {//when component renders run this
@@ -55,7 +75,6 @@ export default function EditAddress() {
       }
 
       //add submit function
-
     return(
         <>
     <div>
@@ -64,12 +83,20 @@ export default function EditAddress() {
         <div className="settingsContainer">
             <div className="settingsAddressContainer">
                     <h2 className="settingsH2">Address</h2>
-                    <p className="settingsP">Street:</p><input placeholder={u[0]}></input><br/><br/>
-                    <p className="settingsP">City:</p><input placeholder={u[1]}></input><br/><br/>
-                    <p className="settingsP">State:</p><input placeholder={u[2]}></input><br/><br/>
-                    <p className="settingsP">Zip Code:</p><input placeholder={u[3]}></input>
+                    <p className="settingsP">Street:</p><input 
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder={u[0]}></input><br/><br/>
+                    <p className="settingsP">City:</p><input
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder={u[1]}></input><br/><br/>
+                    <p className="settingsP">State:</p><input
+                    onChange={(e) => setState(e.target.value)}
+                    placeholder={u[2]}></input><br/><br/>
+                    <p className="settingsP">Zip Code:</p><input
+                    onChange={(e) => setPostCode(e.target.value)} 
+                    placeholder={u[3]}></input>
                     <br/><br/>
-                    <button className="settingsBtn2" onClick={settings}>Done</button>
+                    <button className="settingsBtn2" onClick={updateAddress()}>Done</button>
                     <button className="settingsBtn2" onClick={settings}>Cancel</button>
                 </div>
                 <div className="settingsPaymentContainer">

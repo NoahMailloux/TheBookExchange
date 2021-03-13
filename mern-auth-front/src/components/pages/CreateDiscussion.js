@@ -14,50 +14,23 @@ export default function CreateDiscussion() {
   const [book, setBook] = useState();
   const [genre, setGenre] = useState();
   const [comment, setComment] = useState();
-  //const [discussions, setDiscussions] = useState([])
-  const { userData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
-  useEffect(() => {}, [userData]);
+  const userData = useContext(UserContext);
 
-  if (!userData) return null;
 
   //submit form test
   const submit = async (e) => {
     e.preventDefault();
-    try {
-      const data = {
-        title: title,
-        book: book,
-        genre: genre,
-        comment: comment,
-        creator: userData.userData.id,
-      };
-      const header = {
-        headers: {
-          "x-auth-token": userData.userData.token,
-          "Content-Type": "text/json",
-        },
-      };
-      console.log(userData.user);
-      //const newDiscussion = { title, book, genre, comment, creator };
-      const createDiscussRes = await Axios.post(
-        "http://localhost:5001/discussion/creatediscussion",
-        data,
-        header
-      );
-      console.log(createDiscussRes);
-      /*
-            setUserData({
-                token: loginRes.data.token,
-                user: loginRes.data.user,
-            });*/
-      //localStorage.setItem("auth-token", loginRes.data.token);
-      //history.push("/");
-    } catch (err) {
-      //err.response.data.msg && setError(err.response.data.msg);
-      console.log(JSON.stringify(err.response));
-    }
+    console.log(JSON.stringify(userData.userData.user.id))
+    const userid = userData.userData.user.id
+    let xauthtoken = userData.userData.token
+    
+    const newDiscussion = {title, userid , book, genre, comment, xauthtoken }
+    await Axios.post("http://localhost:5001/discussion/creatediscussion",
+    newDiscussion);
+    history.push("/Discussions")
   };
 
   return (
@@ -69,29 +42,33 @@ export default function CreateDiscussion() {
           <ErrorNotice message={error} clearError={() => setError(undefined)} />
         )}
         <h1>Create Discussion</h1>
-        <form onSubmit={submit}>
-          <h3 id="fname">Title</h3>
+        <form className="form1" onSubmit={submit}>
+          <h3 id="title">Title</h3>
           <input
             id="title"
-            name="title"
+            id="create-title"
             className="inputs"
+            type="title"
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
           ></input>
 
-          <h3 id="lname">Book</h3>
+          <h3 id="book">Book</h3>
           <input
             id="Book"
-            name="Book"
+            name="create-Book"
             className="inputs"
+            type="Book"
             placeholder="Book"
             onChange={(e) => setBook(e.target.value)}
           ></input>
 
-          <h3 id="lname">Genre</h3>
+          <h3 id="genre">Genre</h3>
           <input
             id="Genre"
             name="Genre"
+            id="create-Genre"
+            type="Genre"
             className="inputs"
             placeholder="Genre"
             onChange={(e) => setGenre(e.target.value)}
@@ -109,9 +86,7 @@ export default function CreateDiscussion() {
             cols="50"
           ></textarea>
           <br></br>
-          <button id="create" className="sub" name="create">
-            Create
-          </button>
+          <input type ="submit" value="Create"/>
         </form>
       </div>
     </>
