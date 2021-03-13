@@ -6,37 +6,39 @@ import "./ViewDiscussion.css";
 import LoggedInHeader from "../layout/LoggedInHeader";
 import Axios from "axios";
 
-export default function Discussions() {
+export default function Discussions(props) {
   const [discussions, setDiscussions] = useState({});
   const [books, setbooks] = useState({});
+  const [comment, setComment] = useState({})
 
   const userData = useContext(UserContext);
   const history = useHistory();
 
+
   useEffect(() => {
+  let sendId = props.d
     if (userData.userData.token) {
-      console.log(userData.userData.token);
-      Axios.post("http://localhost:5001/discussion/listdiscussions", null, {
+      
+      console.log(props.d)
+     // console.log(userData.userData.token);
+      Axios.post("http://localhost:5001/comments/listcomments", sendId, {
         headers: {
           "x-auth-token": userData.userData.token,
           "Content-Type": "text/json",
         },
       }).then((data) => {
         let parsedData = JSON.parse(data.data);
-        console.log(parsedData);
-        let titles = [];
-        let bookNames = [];
+        let comments = [];
+        let userID = [];
         let discussionID = [];
         for (const index in parsedData) {
           //this loops through every single index withing the array of objects
-          titles.push(parsedData[index].title); //push the title for each index in the array, parsed data into titles array
-          bookNames.push(parsedData[index].book);
-          discussionID.push(parsedData[index]._id);
-          console.log(JSON.stringify(parsedData[index]._id));
+          comments.push(parsedData[index].comment); //push the title for each index in the array, parsed data into titles array
+          userID.push(parsedData[index].user_id);
+          discussionID.push(parsedData[index].discussion_id);
           
+        console.log(comments);
         }
-        setbooks(bookNames);
-        setDiscussions(titles);
       });
     }
   }, [userData]);
@@ -59,7 +61,6 @@ export default function Discussions() {
 
   return (
     <>
-    <LoggedInHeader />
       <div className="parentdiv">
         <h1 id="mainline" className="mainline">
           Discussion Title
@@ -70,7 +71,6 @@ export default function Discussions() {
           <br></br>
           <label >first comment div</label>
         </div>
-
         
         <div className="generalComments">
           <label >General comment div</label>
@@ -97,13 +97,6 @@ export default function Discussions() {
         </a>
         </div>
         <div className="thumbnail">
-        <img
-          width="335"
-          height="500"
-          src="/TheBookExchange/mern-auth-front/src/images/91AVsmqBaML.jpg"
-          className="thumbnail"
-          id="thumbnail"
-        ></img>
         </div>
       </div>
     </>

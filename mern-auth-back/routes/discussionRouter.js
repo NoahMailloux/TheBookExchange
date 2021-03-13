@@ -22,12 +22,15 @@ router.get("/", auth, async (req, res) => {
 //CREATE DISCUSSION
 router.post("/creatediscussion", async (req, res) => {
   //comments
-  const user = await User.findById(req.user);
-  const discussion = await Discussion.findById(req.user);
-  const { title = "test", creator = "" , book = "test", genre = "test", comment = "test" } = req.body;
+
+
+
+  //const user = await User.findById(req.userid);
+  //const discussion = await Discussion.findById(req.userid);
+  const { title = "", userid = "" , book = "", genre = "", comment = "" } = req.body;
   try {
     
-    const token = req.header("x-auth-token");
+    const token = req.body.xauthtoken;
     if (!token) return res.json({ msg: "No Token" });
 
     const verified = jwt.verify(token, process.env.JWT_SECRET);
@@ -47,7 +50,7 @@ router.post("/creatediscussion", async (req, res) => {
 
     const newDiscussion = new Discussion({
       title: title,
-      creator: user.displayName,
+      creator: userid,
       book: book,
       genre: genre,
       comment: comment,
@@ -63,7 +66,7 @@ router.post("/creatediscussion", async (req, res) => {
 //LIST DISCUSSIONS
 router.post("/listdiscussions", async (req, res) => {
   //comments
-
+  
   const discussion = await Discussion.findById(req.user);
 
   try {

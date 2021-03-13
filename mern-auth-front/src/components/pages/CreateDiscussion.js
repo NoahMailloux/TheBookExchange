@@ -17,28 +17,20 @@ export default function CreateDiscussion() {
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
+  const userData = useContext(UserContext);
 
 
   //submit form test
   const submit = async (e) => {
     e.preventDefault();
-    const email=""
-    const password = ""
-    //MISSING CREATOR
-    const newDiscussion = {title, book, genre, comment}
+    console.log(JSON.stringify(userData.userData.user.id))
+    const userid = userData.userData.user.id
+    let xauthtoken = userData.userData.token
+    
+    const newDiscussion = {title, userid , book, genre, comment, xauthtoken }
     await Axios.post("http://localhost:5001/discussion/creatediscussion",
-    newDiscussion
-    );
-    const loginRes = await Axios.post("http://localhost:5001/users/login", {
-    email,
-    password,
-    })
-    setUserData({
-      token: loginRes.data.token,
-      user: loginRes.data.user,
-    })
-    localStorage.setItem("auth-token", loginRes.data.token)
-    history.push("/TheBookExchange/mern-auth-front/src/components/pages/Discussions.css")
+    newDiscussion);
+    history.push("/Discussions")
   };
 
   return (
