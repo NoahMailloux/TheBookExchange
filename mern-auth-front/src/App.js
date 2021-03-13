@@ -17,6 +17,7 @@ import Overview from "./components/pages/Overview";
 import EditAddress from "./components/pages/EditAddress";
 import EditPaypal from "./components/pages/EditPaypal";
 import EditProfile from "./components/pages/EditProfile";
+import bookofthemonth from "./components/pages/BookOfTheMonth";
 import "./style.css";
 
 export default function App() {
@@ -73,6 +74,8 @@ export default function App() {
               <Route path="/editAddress" component={EditAddress} />
               <Route path="/editPaypal" component={EditPaypal} />
               <Route path="/editProfile" component={EditProfile} />
+              <Route path="/bookofthemonth" component={bookofthemonth} />
+
             </Switch>
           </div>
         </UserContext.Provider>

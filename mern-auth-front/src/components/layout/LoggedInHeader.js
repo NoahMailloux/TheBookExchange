@@ -22,6 +22,7 @@ export default function LoggedInHeader() {
   const myBooks = () => history.push("/myBooks");
   const settings = () => history.push("/settings");
   const overview = () => history.push("/overview");
+  const bookOfTheMonth = () => history.push("/bookofthemonth");
   const logout = () => {
     setUserData({
       token: undefined,
@@ -65,6 +66,8 @@ export default function LoggedInHeader() {
           </button>
           <button onClick={myBooks} className="navbtn">
             My Books
+          </button><button onClick={bookOfTheMonth} className="navbtn">
+            Book of the Month
           </button>
           <button className="navbtn"> </button>
           <button className="navbtn"> </button>

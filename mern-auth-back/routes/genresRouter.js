@@ -19,7 +19,6 @@ router.post("/createGenre", async (req, res) => { //when /createGenre is request
         const possibleGenre = await Genre.find({genre:genre}).exec(); //look for a genre with the same name as value passed in body
         if(possibleGenre.length==0){ //if it doesn't exist, create a new genre 
             const newGenre = new Genre({
-                genreID,
                 genre,
                 description
             }); //create a new genre record
@@ -52,7 +51,6 @@ router.get("/getGenre", async (req, res) => { //when /getGenre is requested this
 
 router.get("/getAllGenres", async (req, res) => { //when /getAllGenre is requested this will be run
     try{
-        console.log(req)
         const token = req.header("x-auth-token"); //grab token
         if(!token) return res.json("no token"); //if no token, don't accept
         const verified = jwt.verify(token, process.env.JWT_SECRET);

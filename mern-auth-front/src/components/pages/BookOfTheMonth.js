@@ -4,51 +4,17 @@ import UserContext from "../../context/UserContext";
 import AuthOptions from "../auth/AuthOptions";
 import LoggedInHeader from "../layout/LoggedInHeader";
 import Axios from "axios";
-import "./genres.css";
+import "./BookOfTheMonth.css";
+import "../forms/SearchBookForm";
+import SearchBookForm from "../forms/SearchBookForm";
 
-export default function Genres() {
+export default function BookOfTheMonth() {
   const [genres, setGenres] = useState({}); //use state to setGenres and store genres outside of useEffect
   const userData = useContext(UserContext);
   const history = useHistory();
   const [genre, setGenre] = useState();
   const [status, setStatus] = useState();
-
-  //form submit
-  const submit = async (e) => {
-    e.preventDefault();
-    if (genre && genre != "Select a Genre from the list...") {
-      Axios.get("http://localhost:5001/users/subscribeToGenre", {
-        headers: {
-          "x-auth-token": userData.userData.token,
-          "genre": genre,
-          "Content-Type": "text/json",
-        },
-      }).then((data) => {
-        setStatus(data.data);
-      });
-    } else {
-      console.log("Please select a Genre");
-    }
-  };
-
-  useEffect(() => {
-    if (userData.userData.token) {
-      Axios.get("http://localhost:5001/users/subscribedGenre", {
-        headers: {
-          "x-auth-token": userData.userData.token,
-          "Content-Type": "text/json",
-        },
-      }).then((data) => {
-        if(data.data[0].subscribedGenre){
-        console.log("Data: " + JSON.stringify(data))
-        setStatus(data.data[0].subscribedGenre);
-        }
-        else{
-          setStatus("No Genre Selected for the month.")
-        }
-      });
-    }
-  });
+  const [searchResults, setSearchResults] = useState();
 
   useEffect(() => {
     //when component renders run this
@@ -88,37 +54,17 @@ export default function Genres() {
     <>
       <LoggedInHeader />
       <div className="page-contents">
-        <h2>Genre of the month</h2>
+        <h2>Book Of The Month</h2>
         <p>
-          This is where you will select an available genre that you are
-          interested in!
+          This is where you will select what book you want to share with our
+          other readers this month!
         </p>
         <p>
-          At the end of the month you will be sent a book based on this genre
-          and hopefully have a stimulating conversation with people interested
-          in this book!
+          You can select any book you have found interesting, just search for a
+          book and select the genre!
         </p>
-        <p>Subscribed Genre: {status}</p>
-        <form className="genreOfMonthForm" onSubmit={submit}>
-          <select
-            placeholder="select a Genre"
-            name="genres"
-            className="genres-dd"
-            onChange={(e) => setGenre(e.target.value)}
-          >
-            {
-              (console.log(g),
-              g.map((
-                x //map g, will loop through each value in the array and store it in x
-              ) => (
-                <option key={x} value={x /*access value using x*/}>
-                  {x}
-                </option>
-              )))
-            }
-          </select>
-          <input type="submit" value="Select Genre" />
-        </form>
+        <p>Current Book: </p>
+            <SearchBookForm props={userData.userData.token}/>
       </div>
     </>
   );
