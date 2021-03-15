@@ -12,32 +12,27 @@ export default function BookOfTheMonth() {
   const [genres, setGenres] = useState({}); //use state to setGenres and store genres outside of useEffect
   const userData = useContext(UserContext);
   const history = useHistory();
-  const [genre, setGenre] = useState();
-  const [status, setStatus] = useState();
+  const [title, setTitle] = useState();
   const [searchResults, setSearchResults] = useState();
+  const [accountStatus, setAccountStatus] = useState();
 
   useEffect(() => {
     //when component renders run this
     if (userData.userData.token) {
-      //console.log(userData.userData.token);
-      Axios.get("http://localhost:5001/genres/getAllGenres", {
+      Axios.get("http://localhost:5001/monthlybook/getMonthly", {
         //this is an axios get requires route and headers, Axios post require route, null, headers in that order
         headers: {
           "x-auth-token": userData.userData.token,
           "Content-Type": "text/json",
         },
       }).then((data) => {
-        //after something is returned, store in data
-        let temp = ["Select a Genre from the list..."]; //this is an array I made to store the genres "Select a Genre from the list..." was made to be the first thing user sees in dropdown
-        let parsedData = JSON.parse(data.data); //this will convert the data back into an object since axios returns only a string
-        console.log(parsedData);
-        for (const index in parsedData) {
-          //for each index in the array of objects
-          temp.push(parsedData[index].genre); //access data in parsed data via the index
-          //console.log(temp)
+        let temp = null;
+        if (data.data.bookExists.length != 0) {
+          temp = data.data.bookExists[0].title;
+        } else {
+          temp = "Please select a book for this month!";
         }
-        console.log(JSON.stringify(temp));
-        setGenres(temp); //use state to set genres
+        setTitle(temp); //use state to set genres
       });
     }
   }, [userData]); //everytime userData changes rerender
@@ -63,8 +58,8 @@ export default function BookOfTheMonth() {
           You can select any book you have found interesting, just search for a
           book and select the genre!
         </p>
-        <p>Current Book: </p>
-            <SearchBookForm props={userData.userData.token}/>
+        <p>Current Book: {title}</p>
+        <SearchBookForm props={userData.userData.token} />
       </div>
     </>
   );

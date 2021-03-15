@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const userModel = require("../models/userModel");
 const User = require("../models/userModel");
+const fetch = require('node-fetch');
+const stripe = require('stripe')('sk_test_51IV2RTDvCxMcNVdKhvqpflF0x6DrrsdaxngoYP0xVK9rBbONkodzbVOcX4k7uS6VYFjL84spNuZTvtl644C7Rpyp00vDcQ5xTH');
 
 router.post("/register", async (req, res) => {
   try {
@@ -16,6 +18,7 @@ router.post("/register", async (req, res) => {
       postCode,
       state,
       city,
+      paid
     } = req.body;
 
     //validate
@@ -30,6 +33,9 @@ router.post("/register", async (req, res) => {
       !city
     )
       return res.status(400).json({ msg: "Not all fields have been entered." });
+    if (!paid) {
+      res.status(400).json({msg: "Please enter payment info"});
+    }
     if (password.length < 5)
       return res
         .status(400)
@@ -67,6 +73,7 @@ router.post("/register", async (req, res) => {
       fname,
       lname,
       phone,
+      paid
     });
     const savedUser = await newUser.save();
     res.json(savedUser);
@@ -249,6 +256,70 @@ router.put("/updateAddress", auth, async (req, res) =>{
         console.log(err);
     }
 });
+
+router.post("/create-checkout-session", async (req, res) => {
+  const { priceId } = req.body;
+
+  // See https://stripe.com/docs/api/checkout/sessions/create
+  // for additional parameters to pass.
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: "subscription",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: priceId,
+          // For metered billing, do not pass quantity
+          quantity: 1,
+        },
+      ],
+      // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
+      // the actual Session ID is returned in the query parameter when your customer
+      // is redirected to the success page.
+      success_url: 'https://example.com/success.html?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://example.com/canceled.html',
+    });
+
+    res.send({
+      sessionId: session.id,
+    });
+  } catch (e) {
+    res.status(400);
+    return res.send({
+      error: {
+        message: e.message,
+      }
+    });
+  }
+});
+
+router.post('/sub', async (req, res) => {
+  try {
+  let email = req.body.email;
+  let payment_method = req.body.payment_method
+  const customer = await stripe.customers.create({
+    payment_method: payment_method,
+    email: email,
+    invoice_settings: {
+      default_payment_method: payment_method,
+    },
+  });
+
+  const subscription = await stripe.subscriptions.create({
+    customer: customer.id,
+    items: [{ plan: 'price_1IV2UXDvCxMcNVdKfyEU8eFJ' }],
+    expand: ['latest_invoice.payment_intent']
+  });
+  
+  const status = subscription['latest_invoice']['payment_intent']['status'] 
+  const client_secret = subscription['latest_invoice']['payment_intent']['client_secret']
+
+  res.json({'client_secret': client_secret, 'status': status});
+}
+catch(err){
+  console.log(err);
+}
+})
 
 
 module.exports = router;

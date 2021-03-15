@@ -77,11 +77,10 @@ router.post("/createcomment", async (req, res) =>{
   });
 
   //LIST COMMENTS
-  router.post("/listcomments", async (req, res) =>{
+  router.get("/listcomments", async (req, res) =>{
     //comments
-  
-    const sendId = req.body.sendId;
-    console.log(sendId)
+    
+    const sendId = req.header("sendId");
     
     const comments = await Comments.findById(req.user);
   try{
@@ -95,10 +94,10 @@ router.post("/createcomment", async (req, res) =>{
     if(!user) return res.json(false);
 
 //print all comments records
-const comments = await Comments.find({ _id: sendId }).exec();
-    res.json(JSON.stringify(comments));
+const comments = await Comments.find({ discussion_id: sendId }).exec();
+console.log(sendId)
+    res.json(comments);
 
-   res.json(JSON.stringify(comments));
    }catch(err){ 
        res.status(500).json({error: err.message});
    }

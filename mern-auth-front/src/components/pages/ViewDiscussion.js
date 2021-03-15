@@ -21,10 +21,11 @@ export default function Discussions(props) {
       
       console.log(props.d)
      // console.log(userData.userData.token);
-      Axios.post("http://localhost:5001/comments/listcomments", sendId, {
+      Axios.get("http://localhost:5001/comments/listcomments", {
         headers: {
           "x-auth-token": userData.userData.token,
           "Content-Type": "text/json",
+          sendId: sendId
         },
       }).then((data) => {
         let parsedData = JSON.parse(data.data);
